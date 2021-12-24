@@ -236,7 +236,10 @@ class App extends React.Component<any, any> {
       walletconnect: {
         package: WalletConnectProvider,
         options: {
-          infuraId: process.env.REACT_APP_INFURA_ID
+          infuraId: process.env.REACT_APP_INFURA_ID,
+          rpc: {
+						56: "https://bsc-dataseed.binance.org"
+					},
         }
       },
       torus: {
@@ -313,8 +316,8 @@ class App extends React.Component<any, any> {
         action: ETH_SEND_TRANSACTION,
         txHash: result,
         from: address,
-        to: "0xa781c2223e49fd8d78167c7d2d1d8c857808dcda",
-        value: "1 ETH"
+        to: address,
+        value: "0 ETH"
       };
 
       // display result

