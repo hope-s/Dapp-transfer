@@ -93,7 +93,7 @@ const STestButton = styled(Button)`
   height: 35px;
   width: 100%;
   max-width: 280px;
-  margin: 12px;
+  margin: 0 auto;
 `;
 
 const NewPositinBtn = styled(Button)`
@@ -107,7 +107,10 @@ const NewPositinBtn = styled(Button)`
       max-width: 50% !important;
       text-align: center;
   }
-  margin: 12px 4px 12px 12px;
+  margin: 12px 0px 12px 12px;
+  &:hover{
+    transform: translateY(0px) !important;
+  }
 `
 
 const MoreBtn = styled(Button)`
@@ -115,12 +118,16 @@ const MoreBtn = styled(Button)`
   font-size: ${fonts.size.medium};
   height: 35px;
   background-color: rgba(255, 255, 255, 0.1);
-  max-width: 140px;
+  max-width: 90px;
   width: 100%;
   @media (max-width: 768px) {
     max-width: 50% !important;
+    margin: 12px 12px 12px 0px;
+    &:hover{
+    transform: translateY(0px) !important;
+    }
   }
-  margin: 12px 12px 12px 4px;
+  margin: 12px -31px 12px 0px;
 `
 
 const MainBox = styled.main`
@@ -175,6 +182,12 @@ const BoxButtom = styled.div`
       width: 95%;
       height: 230px;
     }
+    @media (min-width: 600px) and (max-width: 769px) {
+      margin-top: 15%;
+    }
+    @media (min-width: 380px) and (max-width: 600px) {
+      margin-top: 10%;
+    }
     background-color: #1F4068;
     text-align: center;
     padding: 8px;
@@ -201,12 +214,27 @@ const OverviewSection = styled.section`
     flex-direction: row-reverse;
     justify-content: left;
     width: 100%;
+    margin-top: 0%;
     & .icon-plus{
     position: relative;
     left: -30px !important;
     top: 15px;
     }
   }
+`
+
+const ShowWalletInMobile = styled.div`
+      display: none;
+    @media (max-width: 768px) {
+      display: flex !important;
+    }
+`
+
+const HideWalletInMobile = styled.div`
+      display: flex !important;
+    @media (max-width: 768px) {
+      display: none !important;
+    }
 `
 
 interface IAppState {
@@ -219,6 +247,7 @@ interface IAppState {
   networkId: number;
   assets: IAssetData[];
   showModal: boolean;
+  connectError: boolean;
   pendingRequest: boolean;
   result: any | null;
 }
@@ -233,6 +262,7 @@ const INITIAL_STATE: IAppState = {
   networkId: 1,
   assets: [],
   showModal: false,
+  connectError: false,
   pendingRequest: false,
   result: null
 };
@@ -377,9 +407,17 @@ class App extends React.Component<any, any> {
     }
   };
 
+  public showErrorModal = () => {
+    if (this.state.address === ''){
+      this.toggleModal();
+      this.setState({ connectError : true });
+    }
+    console.log(this.state.connectError)
+  }
+
   public toggleModal = () =>
     this.setState({ showModal: !this.state.showModal });
-
+    
   public testSendTransaction = async () => {
     const { web3, address, chainId } = this.state;
 
@@ -438,7 +476,7 @@ class App extends React.Component<any, any> {
     }
 
     // test message
-    const message = "My email is john@doe.com - 1537836206101";
+    const message = "message";
 
     // hash message
     const hash = hashPersonalMessage(message);
@@ -486,7 +524,7 @@ class App extends React.Component<any, any> {
     }
 
     // test message
-    const message = "My email is john@doe.com - 1537836206101";
+    const message = "message";
 
     // encode message (hex)
     const hexMsg = convertUtf8ToHex(message);
@@ -656,34 +694,37 @@ class App extends React.Component<any, any> {
     } = this.state;
     return (
       <SLayout>
-          <div style={{display: 'flex'}}>
-            <Header
-              connected={connected}
-              address={address}
-              chainId={chainId}
-              killSession={this.resetApp}
-            />
-            { !!assets.length &&
-              <AccountAssets chainId={chainId} assets={assets} />
-            }
-          </div>
-            <h6 style={{display: 'inline'}}>Pools Overview</h6>
-          <OverviewSection>
-            <MoreBtn>More</MoreBtn>
-            <GoPlusSmall className="icon-plus" size={30}/>
-            <NewPositinBtn>New position </NewPositinBtn>
-          </OverviewSection>
+            <HideWalletInMobile>
+              <Header
+                connected={connected}
+                address={address}
+                chainId={chainId}
+                killSession={this.resetApp}
+              />
+              <HideWalletInMobile>
+                <AccountAssets chainId={chainId} assets={assets} />
+              </HideWalletInMobile>
+            </HideWalletInMobile>
+            <ShowWalletInMobile>
+              <AccountAssets chainId={chainId} assets={assets} /> 
+            </ShowWalletInMobile>
+            <div style={{marginTop: '3%'}}>
+              <h6 style={{display: 'block', textAlign: 'center'}}>Pools Overview</h6>
+            <OverviewSection>
+              <MoreBtn onClick={this.showErrorModal}>More</MoreBtn>
+              <GoPlusSmall className="icon-plus" size={30}/>
+              <NewPositinBtn onClick={this.showErrorModal}>New position </NewPositinBtn>
+            </OverviewSection>
+            </div>
           <SContent>
             {fetching && (
               <Column center>
-                <SContainer>
                   <Loader />
-                </SContainer>
               </Column>
             )}
           </SContent>
           <MainBox>
-            <BoxLeft> <h6>Learn about providing liquidity ↗</h6>
+            <BoxLeft > <h6>Learn about providing liquidity ↗</h6>
               Check out our v3 LP walkthrough and migration guides.
             </BoxLeft>
             <BoxRight> <h6>Top pools ↗</h6>
@@ -693,7 +734,7 @@ class App extends React.Component<any, any> {
             Your V3 liquidity positions will appear here.
             <br/>
             {
-             !!assets.length ?
+             this.state.address ?
               <STestButton left onClick={this.testSendTransaction}>
                 Confirm pool
               </STestButton>
@@ -723,7 +764,25 @@ class App extends React.Component<any, any> {
               <SModalTitle>{"Call Request Rejected"}</SModalTitle>
             </SModalContainer>
           )}
+          {this.state.connectError && (
+            <SModalContainer>
+              <SModalTitle>{"error"}</SModalTitle>
+              <SContainer>
+                <SModalParagraph>
+                  {"Connect wallet first!"}
+                </SModalParagraph>
+              </SContainer>
+            </SModalContainer>
+          )}
         </Modal>
+        <ShowWalletInMobile>
+          <Header
+              connected={connected}
+              address={address}
+              chainId={chainId}
+              killSession={this.resetApp}
+          />
+        </ShowWalletInMobile>
       </SLayout>
     );
   };

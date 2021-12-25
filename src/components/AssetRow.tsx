@@ -16,7 +16,7 @@ const SAssetRow = styled.div`
 `;
 const SAssetRowRight = styled.div`
   display: flex;
-  margin-right: 15px;
+  margin: 15px;
 `;
 const SAssetBalance = styled.div`
   display: flex;
@@ -38,13 +38,15 @@ const AssetRow = (props: any) => {
         ) : (
           <ERC20Icon contractAddress={asset.contractAddress.toLowerCase()} />
         )}
-        <SAssetBalance>
-          {`${handleSignificantDecimals(
-            convertAmountFromRawNumber(asset.balance),
-            8
-          )} ${asset.symbol}`}
-        </SAssetBalance>
-
+        {asset.balance !== '0' ? 
+          <SAssetBalance>
+            {`${handleSignificantDecimals(
+              convertAmountFromRawNumber(asset.balance),
+              8
+            )} ${ !!asset.length ? asset.symbol : ''}`}
+          </SAssetBalance>
+          : ""
+        }
       </SAssetRowRight>
     </SAssetRow>
   );

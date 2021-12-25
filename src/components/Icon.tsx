@@ -9,6 +9,7 @@ interface IIconStyleProps {
 const SIcon = styled.img<IIconStyleProps>`
   width: ${({ size }) => `${size}px`};
   height: ${({ size }) => `${size}px`};
+  margin-right: 5px;
 `;
 
 const Icon = (props: any) => {
@@ -32,7 +33,7 @@ Icon.propTypes = {
 Icon.defaultProps = {
   src: null,
   fallback: null,
-  size: 25,
+  size: 30,
 };
 
 export default Icon;
