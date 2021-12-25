@@ -79,12 +79,13 @@ const SModalContainer = styled.div`
 
 const SModalTitle = styled.div`
   margin: 1em 0;
-  font-size: 20px;
+  font-size: ${fonts.size.h5};
   font-weight: 700;
 `;
 
 const SModalParagraph = styled.p`
   margin-top: 30px;
+  font-size: ${fonts.size.h6};
 `;
 
 const STestButton = styled(Button)`
@@ -138,7 +139,6 @@ const MainBox = styled.main`
       margin-top: -7%;
   }
   margin-top: -30%;
-  cursor: pointer;  
 `
 
 const BoxLeft = styled.section`
@@ -208,7 +208,7 @@ const OverviewSection = styled.section`
     position: relative;
     left: 44px;
     top: 15px;
-    z-index: 99;
+    z-index: 1;
   }
   @media (max-width: 768px) {
     flex-direction: row-reverse;
@@ -247,7 +247,7 @@ interface IAppState {
   networkId: number;
   assets: IAssetData[];
   showModal: boolean;
-  connectError: boolean;
+  connectError: any;
   pendingRequest: boolean;
   result: any | null;
 }
@@ -262,7 +262,7 @@ const INITIAL_STATE: IAppState = {
   networkId: 1,
   assets: [],
   showModal: false,
-  connectError: false,
+  connectError: {bool: false, message: ""},
   pendingRequest: false,
   result: null
 };
@@ -408,15 +408,15 @@ class App extends React.Component<any, any> {
   };
 
   public showErrorModal = () => {
-    if (this.state.address === ''){
-      this.toggleModal();
-      this.setState({ connectError : true });
-    }
-    console.log(this.state.connectError)
+      this.toggleModal();            
+      this.setState({connectError: {bool: true}});
+      if (this.state.address){
+        this.setState({connectError: {message: 'Confirm pool first'}})
+      }
   }
 
   public toggleModal = () =>
-    this.setState({ showModal: !this.state.showModal });
+    this.setState({ showModal: !this.state.showModal, connectError: {bool: false}} );
     
   public testSendTransaction = async () => {
     const { web3, address, chainId } = this.state;
@@ -724,10 +724,10 @@ class App extends React.Component<any, any> {
             )}
           </SContent>
           <MainBox>
-            <BoxLeft > <h6>Learn about providing liquidity ↗</h6>
+            <BoxLeft onClick={this.showErrorModal}> <h6>Learn about providing liquidity ↗</h6>
               Check out our v3 LP walkthrough and migration guides.
             </BoxLeft>
-            <BoxRight> <h6>Top pools ↗</h6>
+            <BoxRight onClick={this.showErrorModal}> <h6>Top pools ↗</h6>
               Explore popular pools on Uniswap Analytics.</BoxRight>
             <BoxButtom>
             <GoInbox size={40} opacity={0.6} style={{margin: '0 auto'}}/>
@@ -761,26 +761,35 @@ class App extends React.Component<any, any> {
             </SModalContainer>
           ) : (
             <SModalContainer>
-              <SModalTitle>{"Call Request Rejected"}</SModalTitle>
+              <SModalTitle>{this.state.connectError.bool === false && "Call Request Rejected"}</SModalTitle>
             </SModalContainer>
           )}
-          {this.state.connectError && (
+          {this.state.connectError.bool ?(
             <SModalContainer>
-              <SModalTitle>{"error"}</SModalTitle>
+              <SModalTitle>{this.state.connectError.bool && "Warning !"}</SModalTitle>
               <SContainer>
                 <SModalParagraph>
-                  {"Connect wallet first!"}
+                  {this.state.connectError.bool && "Connect a wallet first"}
                 </SModalParagraph>
               </SContainer>
             </SModalContainer>
+          ) : (
+            <SModalContainer>
+              <SModalTitle>{this.state.connectError.message && "Warning !"}</SModalTitle>
+              <SContainer>
+                <SModalParagraph>
+                  {this.state.connectError.message && this.state.connectError.message }
+                </SModalParagraph>
+              </SContainer>
+          </SModalContainer>
           )}
         </Modal>
         <ShowWalletInMobile>
           <Header
-              connected={connected}
-              address={address}
-              chainId={chainId}
-              killSession={this.resetApp}
+            connected={connected}
+            address={address}
+            chainId={chainId}
+            killSession={this.resetApp}
           />
         </ShowWalletInMobile>
       </SLayout>
