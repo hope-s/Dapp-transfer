@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import Icon from "./Icon";
 import ERC20Icon from "./ERC20Icon";
-import eth from "../assets/eth.svg";
+import eth from "../assets/eth.png";
 import xdai from "../assets/xdai.png";
 import {
   handleSignificantDecimals,
@@ -12,18 +12,11 @@ import {
 const SAssetRow = styled.div`
   width: 100%;
   padding: 20px;
-  display: flex;
-  justify-content: space-between;
-`;
-const SAssetRowLeft = styled.div`
-  display: flex;
-`;
-const SAssetName = styled.div`
-  display: flex;
-  margin-left: 10px;
+  display: inline;
 `;
 const SAssetRowRight = styled.div`
   display: flex;
+  margin-right: 15px;
 `;
 const SAssetBalance = styled.div`
   display: flex;
@@ -39,21 +32,19 @@ const AssetRow = (props: any) => {
       : null;
   return (
     <SAssetRow {...props}>
-      <SAssetRowLeft>
+      <SAssetRowRight>
         {nativeCurrencyIcon ? (
           <Icon src={nativeCurrencyIcon} />
         ) : (
           <ERC20Icon contractAddress={asset.contractAddress.toLowerCase()} />
         )}
-        <SAssetName>{asset.name}</SAssetName>
-      </SAssetRowLeft>
-      <SAssetRowRight>
         <SAssetBalance>
           {`${handleSignificantDecimals(
             convertAmountFromRawNumber(asset.balance),
             8
           )} ${asset.symbol}`}
         </SAssetBalance>
+
       </SAssetRowRight>
     </SAssetRow>
   );

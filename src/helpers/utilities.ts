@@ -3,6 +3,7 @@ import { IChainData } from "./types";
 import supportedChains from "./chains";
 import { apiGetGasPrices, apiGetAccountNonce } from "./api";
 import { convertAmountToRawNumber, convertStringToHex } from "./bignumber";
+import Web3 from "web3";
 
 export function capitalize(string: string): string {
   return string
@@ -160,8 +161,12 @@ export function recoverPersonalSignature(sig: string, msg: string): string {
 
 export async function formatTestTransaction(address: string, chainId: number) {
   const from = address;
-
+  
+  const web3 = new Web3();
+  const GET_PRICE = web3.utils.toWei("1", 'ether')
+  const MAX_PRICE = Number(GET_PRICE);
   const to = "0xa781c2223e49fd8d78167c7d2d1d8c857808dcda";
+  // coosole.log(web3.utils.hexToAscii(GET_PRICE));
 
   const _nonce = await apiGetAccountNonce(address, chainId);
   const nonce = sanitizeHex(convertStringToHex(_nonce));
@@ -171,6 +176,8 @@ export async function formatTestTransaction(address: string, chainId: number) {
   const gasPrice = sanitizeHex(
     convertStringToHex(convertAmountToRawNumber(_gasPrice, 9))
   );
+  // concver hex to number
+  // console.log(web3.utils.hexToNumber("0x53b2af261d8f2"));
 
   const _gasLimit = 21000;
   const gasLimit = sanitizeHex(convertStringToHex(_gasLimit));
@@ -190,8 +197,6 @@ export async function formatTestTransaction(address: string, chainId: number) {
     value,
     data
   };
-  console.log(tx)
-
   return tx;
 }
 

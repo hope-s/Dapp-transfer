@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import * as PropTypes from "prop-types";
 import Blockie from "./Blockie";
-import Banner from "./Banner";
+// import Banner from "./Banner";
 import { ellipseAddress, getChainData } from "../helpers/utilities";
 import { transitions } from "../styles";
 
@@ -12,6 +12,7 @@ const SHeader = styled.div`
   width: 100%;
   height: 100px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
@@ -84,13 +85,11 @@ const Header = (props: IHeaderProps) => {
   const chainData = chainId ? getChainData(chainId) : null;
   return (
     <SHeader {...props}>
-      {connected && chainData ? (
+      {connected && chainData && (
         <SActiveChain>
           <p>{`Connected to`}</p>
           <p>{chainData.name}</p>
         </SActiveChain>
-      ) : (
-        <Banner />
       )}
       {address && (
         <SActiveAccount>

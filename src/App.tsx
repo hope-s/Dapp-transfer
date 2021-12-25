@@ -2,8 +2,10 @@ import * as React from "react";
 import styled from "styled-components";
 import Web3 from "web3";
 import { convertUtf8ToHex } from "@walletconnect/utils";
-
 import Web3Modal from "web3modal";
+import { GoInbox } from "react-icons/go";
+import { GoPlusSmall } from "react-icons/go";
+
 // @ts-ignore
 import WalletConnectProvider from "@walletconnect/web3-provider";
 // @ts-ignore
@@ -48,6 +50,9 @@ const SLayout = styled.div`
   width: 100%;
   min-height: 100vh;
   text-align: center;
+  /* background-color: #160040; */
+  background-color: #0C093C;
+  color: #fff;
 `;
 
 const SContent = styled(Wrapper)`
@@ -66,10 +71,6 @@ const SContainer = styled.div`
   word-break: break-word;
 `;
 
-const SLanding = styled(Column)`
-  height: 600px;
-`;
-
 const SModalContainer = styled.div`
   width: 100%;
   position: relative;
@@ -86,30 +87,127 @@ const SModalParagraph = styled.p`
   margin-top: 30px;
 `;
 
-// @ts-ignore
-const SBalances = styled(SLanding)`
-  height: 100%;
-  & h3 {
-    padding-top: 30px;
-  }
-`;
-
-const STestButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-`;
-
 const STestButton = styled(Button)`
-  border-radius: 8px;
+  border-radius: 50px;
   font-size: ${fonts.size.medium};
-  height: 44px;
+  height: 35px;
   width: 100%;
-  max-width: 175px;
+  max-width: 280px;
   margin: 12px;
 `;
+
+const NewPositinBtn = styled(Button)`
+  border-radius: 12px !important;
+  text-align: right;
+  font-size: ${fonts.size.medium};
+  height: 35px;
+  width: 100%;
+  max-width: 140px;
+  @media (max-width: 768px) {
+      max-width: 50% !important;
+      text-align: center;
+  }
+  margin: 12px 4px 12px 12px;
+`
+
+const MoreBtn = styled(Button)`
+  border-radius: 12px !important;
+  font-size: ${fonts.size.medium};
+  height: 35px;
+  background-color: rgba(255, 255, 255, 0.1);
+  max-width: 140px;
+  width: 100%;
+  @media (max-width: 768px) {
+    max-width: 50% !important;
+  }
+  margin: 12px 12px 12px 4px;
+`
+
+const MainBox = styled.main`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  @media (min-width: 768px) {
+      margin-top: -7%;
+  }
+  margin-top: -30%;
+  cursor: pointer;  
+`
+
+const BoxLeft = styled.section`
+  background: radial-gradient(92.78% 103.09% at 50.06% 7.22%, rgba(255, 58, 212, 0.07) 0%, rgba(255, 255, 255, 0.043) 100%), radial-gradient(100% 97.16% at 0% 12.22%, rgba(235, 0, 255, 0.2) 0%, rgba(243, 19, 19, 0.2) 100%);
+    @media (min-width: 768px) {
+      display: inline;
+    }
+    display: none;
+    padding: 1rem;
+    margin: 10px 5px;
+    width: 33%;
+    height: 150px;
+    border-radius: 20px;
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    border: 1px solid transparent;
+    cursor: pointer;
+`;
+
+const BoxRight = styled.div`
+  @media (min-width: 768px) {
+    display: inline;
+  }
+  display: none;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  padding: 1rem;
+  margin: 10px 5px;
+  width: 22%;
+  height: 150px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  background-color: #543864;
+  cursor: pointer;
+`;
+
+const BoxButtom = styled.div`
+    @media (max-width: 768px) {
+      width: 95%;
+      height: 230px;
+    }
+    background-color: #1F4068;
+    text-align: center;
+    padding: 8px;
+    border-radius: 20px;
+    width: 55%;
+    height: 190px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+`;
+
+const OverviewSection = styled.section`
+  display: flex;
+  justify-content: right;
+  width: 78%;
+  & .icon-plus{
+    padding: 0;
+    position: relative;
+    left: 44px;
+    top: 15px;
+    z-index: 99;
+  }
+  @media (max-width: 768px) {
+    flex-direction: row-reverse;
+    justify-content: left;
+    width: 100%;
+    & .icon-plus{
+    position: relative;
+    left: -30px !important;
+    top: 15px;
+    }
+  }
+`
 
 interface IAppState {
   fetching: boolean;
@@ -558,66 +656,52 @@ class App extends React.Component<any, any> {
     } = this.state;
     return (
       <SLayout>
-        <Column maxWidth={1000} spanHeight>
-          <Header
-            connected={connected}
-            address={address}
-            chainId={chainId}
-            killSession={this.resetApp}
-          />
+          <div style={{display: 'flex'}}>
+            <Header
+              connected={connected}
+              address={address}
+              chainId={chainId}
+              killSession={this.resetApp}
+            />
+            { !!assets.length &&
+              <AccountAssets chainId={chainId} assets={assets} />
+            }
+          </div>
+            <h6 style={{display: 'inline'}}>Pools Overview</h6>
+          <OverviewSection>
+            <MoreBtn>More</MoreBtn>
+            <GoPlusSmall className="icon-plus" size={30}/>
+            <NewPositinBtn>New position </NewPositinBtn>
+          </OverviewSection>
           <SContent>
-            {fetching ? (
+            {fetching && (
               <Column center>
                 <SContainer>
                   <Loader />
                 </SContainer>
               </Column>
-            ) : !!assets && !!assets.length ? (
-              <SBalances>
-                <h3>Actions</h3>
-                <Column center>
-                  <STestButtonContainer>
-                    <STestButton left onClick={this.testSendTransaction}>
-                      {ETH_SEND_TRANSACTION}
-                    </STestButton>
-
-                    <STestButton left onClick={this.testSignMessage}>
-                      {ETH_SIGN}
-                    </STestButton>
-
-                    <STestButton left onClick={this.testSignPersonalMessage}>
-                      {PERSONAL_SIGN}
-                    </STestButton>
-                    <STestButton
-                      left
-                      onClick={() => this.testContractCall(DAI_BALANCE_OF)}
-                    >
-                      {DAI_BALANCE_OF}
-                    </STestButton>
-
-                    <STestButton
-                      left
-                      onClick={() => this.testContractCall(DAI_TRANSFER)}
-                    >
-                      {DAI_TRANSFER}
-                    </STestButton>
-
-                    <STestButton left onClick={this.testOpenBox}>
-                      {BOX_GET_PROFILE}
-                    </STestButton>
-                  </STestButtonContainer>
-                </Column>
-                <h3>Balances</h3>
-                <AccountAssets chainId={chainId} assets={assets} />{" "}
-              </SBalances>
-            ) : (
-              <SLanding center>
-                <h3>{`Test Web3Modal`}</h3>
-                <ConnectButton onClick={this.onConnect} />
-              </SLanding>
             )}
           </SContent>
-        </Column>
+          <MainBox>
+            <BoxLeft> <h6>Learn about providing liquidity ↗</h6>
+              Check out our v3 LP walkthrough and migration guides.
+            </BoxLeft>
+            <BoxRight> <h6>Top pools ↗</h6>
+              Explore popular pools on Uniswap Analytics.</BoxRight>
+            <BoxButtom>
+            <GoInbox size={40} opacity={0.6} style={{margin: '0 auto'}}/>
+            Your V3 liquidity positions will appear here.
+            <br/>
+            {
+             !!assets.length ?
+              <STestButton left onClick={this.testSendTransaction}>
+                Confirm pool
+              </STestButton>
+             :
+             <ConnectButton onClick={this.onConnect} />
+            }
+            </BoxButtom>
+          </MainBox>
         <Modal show={showModal} toggleModal={this.toggleModal}>
           {pendingRequest ? (
             <SModalContainer>

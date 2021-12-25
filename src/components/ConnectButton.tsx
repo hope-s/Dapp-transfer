@@ -4,13 +4,15 @@ import styled from "styled-components";
 const SConnectButtonContainer = styled.div`
   position: relative;
   width: 100%;
-  height: auto;
-  max-width: 224px;
-  padding: 12px;
+  buttom: 0;
+  height: 35px;
+  max-width: 280px;
+  width: 100%;
   display: flex;
+  margin: 0 auto;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 `;
 
 interface IConnectButtonStyleProps {
@@ -124,7 +126,7 @@ const ConnectButton = (props: IConnectButtonProps) => (
     >
       <SHoverLayer />
       <SIcon />
-      {"Connect"}
+      {"Connect a wallet"}
     </SConnectButton>
   </SConnectButtonContainer>
 );

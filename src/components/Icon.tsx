@@ -32,7 +32,7 @@ Icon.propTypes = {
 Icon.defaultProps = {
   src: null,
   fallback: null,
-  size: 20,
+  size: 25,
 };
 
 export default Icon;

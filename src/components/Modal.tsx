@@ -77,7 +77,7 @@ const SCloseButton = styled.div<ICloseButtonStyleProps>`
     content: " ";
     height: ${({ size }) => `${size}px`};
     width: 2px;
-    background: ${({ color }) => `rgb(${colors[color]})`};
+    background: #fff !important;
   }
   &:before {
     transform: rotate(45deg);
@@ -92,7 +92,7 @@ const SCard = styled.div`
   width: 100%;
   max-width: 500px;
   padding: 25px;
-  background-color: rgb(${colors.white});
+  background-color: #3D2C8D;
   border-radius: 6px;
   display: flex;
   flex-direction: column;

@@ -1,5 +1,4 @@
 import * as React from "react";
-import Column from "./Column";
 import AssetRow from "./AssetRow";
 import { IAssetData } from "../helpers/types";
 
@@ -42,12 +41,12 @@ const AccountAssets = (props: any) => {
     sessionStorage.setItem('balance', nativeCurrency.balance || '{}')
   }
   return (
-    <Column center>
+    <div>
       <AssetRow key={nativeCurrency.name} asset={nativeCurrency} />
       {tokens.map((token) => (
         <AssetRow key={token.symbol} asset={token} />
       ))}
-    </Column>
+    </div>
   );
 };
 
