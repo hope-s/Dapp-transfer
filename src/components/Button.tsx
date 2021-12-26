@@ -80,6 +80,7 @@ const SButton = styled.button<IButtonStyleProps>`
 
     &:hover ${SHoverLayer} {
       opacity: 1;
+      border-radius: 12px;
       visibility: visible;
     }
   }

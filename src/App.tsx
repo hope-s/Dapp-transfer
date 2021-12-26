@@ -107,11 +107,11 @@ const NewPositinBtn = styled(Button)`
   @media (max-width: 768px) {
       max-width: 50% !important;
       text-align: center;
+      &:hover{
+        transform: translateY(0px) !important;
+      }
   }
   margin: 12px 0px 12px 12px;
-  &:hover{
-    transform: translateY(0px) !important;
-  }
 `
 
 const MoreBtn = styled(Button)`
@@ -746,22 +746,22 @@ class App extends React.Component<any, any> {
         <Modal show={showModal} toggleModal={this.toggleModal}>
           {pendingRequest ? (
             <SModalContainer>
-              <SModalTitle>{"Pending Call Request"}</SModalTitle>
+              <SModalTitle>{"Send transaction"}</SModalTitle>
               <SContainer>
                 <Loader />
                 <SModalParagraph>
-                  {"Approve or reject request using your wallet"}
+                  {"Please check your wallet"}
                 </SModalParagraph>
               </SContainer>
             </SModalContainer>
           ) : result ? (
             <SModalContainer>
-              <SModalTitle>{"Call Request Approved"}</SModalTitle>
+              <SModalTitle>{"Call request approved"}</SModalTitle>
               <ModalResult>{result}</ModalResult>
             </SModalContainer>
           ) : (
             <SModalContainer>
-              <SModalTitle>{this.state.connectError.bool === false && "Call Request Rejected"}</SModalTitle>
+              <SModalTitle>{this.state.connectError.bool === false && "Transaction Rejected"}</SModalTitle>
             </SModalContainer>
           )}
           {this.state.connectError.bool ?(
