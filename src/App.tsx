@@ -111,7 +111,7 @@ const NewPositinBtn = styled(Button)`
         transform: translateY(0px) !important;
       }
   }
-  margin: 12px 0px 12px 12px;
+  margin: 12px 12px;
 `
 
 const MoreBtn = styled(Button)`
@@ -179,8 +179,9 @@ const BoxRight = styled.div`
 
 const BoxButtom = styled.div`
     @media (max-width: 768px) {
-      width: 95%;
+      width: 94%;
       height: 230px;
+      border-radius: 12px;
     }
     @media (min-width: 600px) and (max-width: 769px) {
       margin-top: 15%;
@@ -217,21 +218,21 @@ const OverviewSection = styled.section`
     margin-top: 0%;
     & .icon-plus{
     position: relative;
-    left: -30px !important;
+    left: -35px !important;
     top: 15px;
     }
   }
 `
 
 const ShowWalletInMobile = styled.div`
-      display: none;
+    display: none;
     @media (max-width: 768px) {
       display: flex !important;
     }
 `
 
 const HideWalletInMobile = styled.div`
-      display: flex !important;
+    display: flex !important;
     @media (max-width: 768px) {
       display: none !important;
     }

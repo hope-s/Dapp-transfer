@@ -174,7 +174,9 @@ class Modal extends React.Component<IModalProps, IModalState> {
           <SHitbox onClick={this.toggleModal} />
 
           <SCard>
-            <SCloseButton size={25} color={"dark"} onClick={this.toggleModal} />
+            <div style={{padding: '5px 10px'}} onClick={this.toggleModal} >
+              <SCloseButton size={25} color={"dark"} />
+            </div>
             <SModalContent>{children}</SModalContent>
           </SCard>
         </SModalContainer>

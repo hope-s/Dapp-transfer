@@ -12,11 +12,17 @@ import {
 const SAssetRow = styled.div`
   width: 100%;
   padding: 20px;
+  @media (max-width: 768px) {
+    padding: 0px;
+  }
   display: inline;
 `;
 const SAssetRowRight = styled.div`
   display: flex;
-  margin: 15px;
+  margin: 15px 20px 15px 1px;
+  @media (max-width: 768px) {
+    margin: 11px;
+  }
 `;
 const SAssetBalance = styled.div`
   display: flex;
