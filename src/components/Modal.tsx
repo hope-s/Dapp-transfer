@@ -92,7 +92,7 @@ const SCard = styled.div`
   width: 100%;
   max-width: 500px;
   padding: 25px;
-  background-color: #3D2C8D;
+  background-color: #1F4068;
   border-radius: 6px;
   display: flex;
   flex-direction: column;

