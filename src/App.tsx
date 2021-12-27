@@ -5,6 +5,8 @@ import { convertUtf8ToHex } from "@walletconnect/utils";
 import Web3Modal from "web3modal";
 import { GoInbox } from "react-icons/go";
 import { GoPlusSmall } from "react-icons/go";
+import { GoAlert } from "react-icons/go";
+import { GoCheck } from "react-icons/go";
 
 // @ts-ignore
 import WalletConnectProvider from "@walletconnect/web3-provider";
@@ -296,7 +298,7 @@ class App extends React.Component<any, any> {
 			theme: {
 				background: '#1F4068',
 				hover: '#1c395d',
-        main: "#FFF",
+        main: "#fff",
         secondary: "#fff"
 			},
       network: this.getNetwork(),
@@ -760,12 +762,12 @@ class App extends React.Component<any, any> {
             </SModalContainer>
           ) : result ? (
             <SModalContainer>
-              <SModalTitle>{"Call request approved"}</SModalTitle>
+              <SModalTitle style={{color: '#95D1CC'}}>{"Transaction successfully completed"} <GoCheck/></SModalTitle>
               <ModalResult>{result}</ModalResult>
             </SModalContainer>
           ) : (
             <SModalContainer>
-              <SModalTitle>{this.state.connectError.bool === false && "Transaction Rejected"}</SModalTitle>
+              <SModalTitle style={{color: '#F8485E'}}>{this.state.connectError.bool === false && 'Transaction Rejected'} {this.state.connectError.bool === false && <GoAlert/>}</SModalTitle>
             </SModalContainer>
           )}
           {this.state.connectError.bool ?(

