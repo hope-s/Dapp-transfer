@@ -16,6 +16,10 @@ const SHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
+  @media (max-width: 768px) {
+    position: absolute;
+    top: 66.5%;
+  }
 `;
 
 const SActiveAccount = styled.div`
@@ -50,6 +54,7 @@ interface IHeaderStyle {
 const SAddress = styled.p<IHeaderStyle>`
   transition: ${transitions.base};
   font-weight: bold;
+  user-select: none;
   margin: ${({ connected }) => (connected ? "-2px auto 0.7em" : "0")};
 `;
 

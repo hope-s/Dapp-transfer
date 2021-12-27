@@ -107,11 +107,9 @@ const NewPositinBtn = styled(Button)`
   @media (max-width: 768px) {
       max-width: 50% !important;
       text-align: center;
-      &:hover{
-        transform: translateY(0px) !important;
-      }
+      margin: 12px 0px 10px 15px;
   }
-  margin: 12px 12px;
+  margin: 12px 4px 12px 10px;
 `
 
 const MoreBtn = styled(Button)`
@@ -124,9 +122,6 @@ const MoreBtn = styled(Button)`
   @media (max-width: 768px) {
     max-width: 50% !important;
     margin: 12px 12px 12px 0px;
-    &:hover{
-    transform: translateY(0px) !important;
-    }
   }
   margin: 12px -31px 12px 0px;
 `
@@ -179,15 +174,18 @@ const BoxRight = styled.div`
 
 const BoxButtom = styled.div`
     @media (max-width: 768px) {
-      width: 94%;
+      width: 93%;
       height: 230px;
       border-radius: 12px;
-    }
-    @media (min-width: 600px) and (max-width: 769px) {
-      margin-top: 15%;
+      position: absolute;
+      top: 26% !important;
     }
     @media (min-width: 380px) and (max-width: 600px) {
-      margin-top: 10%;
+      width: 95%;
+
+    }
+    @media (min-width: 601px) and (max-width: 769px) {
+      width: 96%;
     }
     background-color: #1F4068;
     text-align: center;
@@ -196,8 +194,8 @@ const BoxButtom = styled.div`
     width: 55%;
     height: 190px;
     display: grid;
-    justify-content: center;
-    align-items: center;
+    justify-content: center !important;
+    align-items: center !important;
 `;
 
 const OverviewSection = styled.section`
@@ -218,26 +216,25 @@ const OverviewSection = styled.section`
     margin-top: 0%;
     & .icon-plus{
     position: relative;
-    left: -35px !important;
+    left: -25px !important;
     top: 15px;
     }
   }
-`
+`;
 
 const ShowWalletInMobile = styled.div`
     display: none;
     @media (max-width: 768px) {
       display: flex !important;
     }
-`
+`;
 
 const HideWalletInMobile = styled.div`
     display: flex !important;
     @media (max-width: 768px) {
       display: none !important;
     }
-`
-
+`;
 interface IAppState {
   fetching: boolean;
   address: string;
@@ -296,9 +293,15 @@ class App extends React.Component<any, any> {
     };
 
     this.web3Modal = new Web3Modal({
+			theme: {
+				background: '#1F4068',
+				hover: '#1c395d',
+        main: "#FFF",
+        secondary: "#fff"
+			},
       network: this.getNetwork(),
       cacheProvider: true,
-      providerOptions: this.getProviderOptions()
+      providerOptions: this.getProviderOptions(),
     });
   }
 
