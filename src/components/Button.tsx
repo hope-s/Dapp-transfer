@@ -26,7 +26,7 @@ const SIcon = styled.div`
   top: calc((100% - 15px) / 2);
 `;
 
-const SHoverLayer = styled.div`
+export const SHoverLayer = styled.div`
   transition: ${transitions.button};
   position: absolute;
   height: 100%;
@@ -80,7 +80,7 @@ const SButton = styled.button<IButtonStyleProps>`
 
     &:hover ${SHoverLayer} {
       opacity: 1;
-      border-radius: 12px;
+      border-radius: 50px;
       visibility: visible;
     }
   }

