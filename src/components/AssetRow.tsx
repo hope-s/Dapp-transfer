@@ -17,19 +17,21 @@ const SAssetRow = styled.div`
   }
   display: inline;
 `;
+
 const SAssetRowRight = styled.div`
   display: flex;
   flex-wrap: no-wrap;
   margin: 10px 5px 0px 0px;
   @media (max-width: 768px) {
-    margin: 11px;
+    margin: 11px 13px;
   }
 `;
+
 const SAssetBalance = styled.div`
   display: flex;
-  margin-top: 2px !important;
+  margin-top: 3px !important;
   @media (min-width: 768px) {
-    margin-left: -7px !important;
+    margin-left: -9px !important;
     margin-top: -5px !important;
   }
 `;

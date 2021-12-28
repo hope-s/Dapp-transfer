@@ -5,6 +5,7 @@ import Blockie from "./Blockie";
 // import Banner from "./Banner";
 import { ellipseAddress, getChainData } from "../helpers/utilities";
 import { transitions } from "../styles";
+import Button, {SHoverLayer} from "./Button";
 
 const SHeader = styled.div`
   margin-top: -1px;
@@ -18,7 +19,7 @@ const SHeader = styled.div`
   padding: 0 16px;
   @media (max-width: 768px) {
     position: absolute;
-    top: 66.5%;
+    top: 61.5%;
   }
 `;
 
@@ -58,24 +59,26 @@ const SAddress = styled.p<IHeaderStyle>`
   margin: ${({ connected }) => (connected ? "-2px auto 0.7em" : "0")};
 `;
 
-const SDisconnect = styled.div<IHeaderStyle>`
+const SDisconnect = styled(Button)<IHeaderStyle>`
   transition: ${transitions.button};
-  font-size: 12px;
+  font-size: 1rem;
+  font-weight: 500;
   font-family: monospace;
-  position: absolute;
-  right: 0;
-  top: 20px;
-  opacity: 0.7;
-  cursor: pointer;
-
-  opacity: ${({ connected }) => (connected ? 1 : 0)};
-  visibility: ${({ connected }) => (connected ? "visible" : "hidden")};
-  pointer-events: ${({ connected }) => (connected ? "auto" : "none")};
-
-  &:hover {
-    transform: translateY(-1px);
-    opacity: 0.5;
+  background-color: rgba(21, 61, 111, 0.44);
+  border: 1px solid rgba(21, 61, 111, 0.44);
+  color: #fff !important;
+  height: 36px;
+  border-radius: 14px;
+  margin: -10px -5px 0px 10px;
+  padding: 10px;
+  width: 150px;
+  @media (max-width: 768px) {
+      display: none !important;
   }
+  &:hover ${SHoverLayer}{
+    border-radius: 14px !important;
+  }
+}
 `;
 
 interface IHeaderProps {

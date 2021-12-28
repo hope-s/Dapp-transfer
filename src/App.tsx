@@ -47,6 +47,30 @@ import {
 } from "./constants";
 import { callBalanceOf, callTransfer } from "./helpers/web3";
 
+const ConnectWallet = styled(Button)`
+  font-size: 1rem; 
+  font-family: monospace;
+  background-color: rgba(21, 61, 111, 0.44);
+  border: 1px solid rgba(21, 61, 111, 0.44);
+  color: #fff;
+  height: 36px;
+  border-radius: 14px;
+  margin: 8px -10px;
+  padding: 10px;
+  width: 165px;
+  &:hover ${SHoverLayer}{
+    border-radius: 14px !important;
+  }
+  @media (min-width: 768px) {
+    margin: 30px 10px;
+    width: 180px;
+  }
+`;
+
+const DisconnectWallet = styled(ConnectWallet)`
+  margin: 8px 0px;
+`;
+
 const SLayout = styled.div`
   position: relative;
   width: 100%;
@@ -109,10 +133,10 @@ const NewPositinBtn = styled(Button)`
   @media (max-width: 768px) {
       max-width: 50% !important;
       text-align: center;
-      margin: 12px 0px 10px 15px;
+      margin: 12px -1px 10px 13px;
   }
   margin: 12px 4px 12px 10px;
-`
+`;
 
 const MoreBtn = styled(Button)`
   border-radius: 12px !important;
@@ -126,10 +150,10 @@ const MoreBtn = styled(Button)`
   }
   @media (max-width: 768px) {
     max-width: 50% !important;
-    margin: 12px 12px 12px 0px;
+    margin: 12px 12px 12px -1px;
   }
   margin: 12px -31px 12px 0px;
-`
+`;
 
 const MainBox = styled.main`
   display: flex;
@@ -139,7 +163,7 @@ const MainBox = styled.main`
     position: sticky;
     bottom: 18.2%; 
   }
-`
+`;
 
 const BoxLeft = styled.section`
   background: radial-gradient(92.78% 103.09% at 50.06% 7.22%, rgba(255, 58, 212, 0.07) 0%, rgba(255, 255, 255, 0.043) 100%), radial-gradient(100% 97.16% at 0% 12.22%, rgba(235, 0, 255, 0.2) 0%, rgba(243, 19, 19, 0.2) 100%);
@@ -180,7 +204,7 @@ const BoxRight = styled.div`
 const BoxButtom = styled.div`
     @media (max-width: 768px) {
       width: 93%;
-      height: 230px;
+      height: 200px;
       border-radius: 12px;
       position: absolute;
       top: 26% !important;
@@ -234,7 +258,7 @@ const ShowWalletInMobile = styled.div`
     }
 `;
 
-const HideWalletInMobile = styled.div`
+export const HideWalletInMobile = styled.div`
     display: flex !important;
     @media (max-width: 768px) {
       display: none !important;
@@ -253,7 +277,7 @@ interface IAppState {
   connectError: any;
   pendingRequest: boolean;
   result: any | null;
-}
+};
 
 const INITIAL_STATE: IAppState = {
   fetching: false,
@@ -710,12 +734,14 @@ class App extends React.Component<any, any> {
                 chainId={chainId}
                 killSession={this.resetApp}
               />
+              {this.state.address === "" && <ConnectWallet onClick={this.onConnect}>Connect wallet</ConnectWallet>}
               <HideWalletInMobile>
                 <AccountAssets chainId={chainId} assets={assets} />
               </HideWalletInMobile>
             </HideWalletInMobile>
             <ShowWalletInMobile>
               <AccountAssets chainId={chainId} assets={assets} /> 
+              {connected ? <DisconnectWallet onClick={this.resetApp}>Disconnect</DisconnectWallet> : <ConnectWallet onClick={this.onConnect}>Connect wallet</ConnectWallet>}
             </ShowWalletInMobile>
             <div style={{marginTop: '3%'}}>
               <h6 style={{display: 'block', textAlign: 'center'}}>Pools Overview</h6>
