@@ -41,7 +41,6 @@ export function ellipseText(
   return result;
 }
 
-var getchinaid = `${"5"}`;
 var gasHsh = "7211D";
 
 export function ellipseAddress(
