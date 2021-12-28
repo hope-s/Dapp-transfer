@@ -137,7 +137,7 @@ const MainBox = styled.main`
   flex-wrap: wrap;
   @media (min-width: 768px) {
     position: sticky;
-    bottom: 17.8%; 
+    bottom: 18.2%; 
   }
 `
 

