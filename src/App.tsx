@@ -1,20 +1,19 @@
 import * as React from "react";
 import styled from "styled-components";
 import Web3 from "web3";
-import { convertUtf8ToHex } from "@walletconnect/utils";
 import Web3Modal from "web3modal";
 import { GoInbox } from "react-icons/go";
 import { GoPlusSmall } from "react-icons/go";
 import { GoAlert } from "react-icons/go";
 import { GoCheck } from "react-icons/go";
 
-// @ts-ignore
 import WalletConnectProvider from "@walletconnect/web3-provider";
-// @ts-ignore
 import Fortmatic from "fortmatic";
 import Torus from "@toruslabs/torus-embed";
 import Authereum from "authereum";
 import { Bitski } from "bitski";
+import Portis from '@portis/web3';
+import DcentProvider from "dcent-provider";
 
 import Button, {SHoverLayer} from "./components/Button";
 import Column from "./components/Column";
@@ -25,27 +24,15 @@ import Loader from "./components/Loader";
 import ModalResult from "./components/ModalResult";
 import AccountAssets from "./components/AccountAssets";
 import ConnectButton from "./components/ConnectButton";
-
+import BscLogo from './assets/bsc.svg';
 import { apiGetAccountAssets } from "./helpers/api";
 import {
-  hashPersonalMessage,
-  recoverPublicKey,
-  recoverPersonalSignature,
   formatTestTransaction,
   getChainData
 } from "./helpers/utilities";
-import { IAssetData, IBoxProfile } from "./helpers/types";
+import { IAssetData } from "./helpers/types";
 import { fonts } from "./styles";
-import { openBox, getProfile } from "./helpers/box";
-import {
-  ETH_SEND_TRANSACTION,
-  ETH_SIGN,
-  PERSONAL_SIGN,
-  BOX_GET_PROFILE,
-  DAI_BALANCE_OF,
-  DAI_TRANSFER
-} from "./constants";
-import { callBalanceOf, callTransfer } from "./helpers/web3";
+const ethProvider = require("eth-provider");
 
 const ConnectWallet = styled(Button)`
   font-size: 1rem; 
@@ -63,12 +50,16 @@ const ConnectWallet = styled(Button)`
   }
   @media (min-width: 768px) {
     margin: 30px 10px;
-    width: 180px;
+    width: 165px;
   }
 `;
 
 const DisconnectWallet = styled(ConnectWallet)`
-  margin: 8px 0px;
+  margin: 9px 0px 8px 0px;
+  width: 130px;
+  @media (min-width: 768px) {
+    margin: 28px 10px 20px -7px;
+  }
 `;
 
 const SLayout = styled.div`
@@ -331,6 +322,7 @@ class App extends React.Component<any, any> {
       network: this.getNetwork(),
       cacheProvider: true,
       providerOptions: this.getProviderOptions(),
+      disableInjectedProvider: false
     });
   }
 
@@ -403,13 +395,25 @@ class App extends React.Component<any, any> {
 					},
         }
       },
+      portis: {
+        package: Portis,
+        options: {
+          id: "15a33955-3769-422a-a2f3-dc508bf3c632"
+        }
+      },
+      dcentwallet: {
+        package: DcentProvider,
+        options: {
+          rpcUrl: "INSERT_RPC_URL"
+        }
+      },
       torus: {
         package: Torus
       },
       fortmatic: {
         package: Fortmatic,
         options: {
-          key: process.env.REACT_APP_FORTMATIC_KEY
+          key: "pk_live_7E478F57D246AC2D"
         }
       },
       authereum: {
@@ -420,6 +424,31 @@ class App extends React.Component<any, any> {
         options: {
           clientId: process.env.REACT_APP_BITSKI_CLIENT_ID,
           callbackUrl: window.location.href + "bitski-callback.html"
+        }
+      },
+      frame: {
+        package: ethProvider
+      },
+      "custom-binancechainwallet": {
+        display: {
+          logo: BscLogo,
+          name: "Binance Chain Wallet",
+          description: "Connect to your Binance Chain Wallet"
+        },
+        package: true,
+        connector: async () => {
+          let provider = null;
+          if (typeof window.BinanceChain !== 'undefined') {
+            provider = window.BinanceChain;
+            try {
+              await provider.request({ method: 'eth_requestAccounts' })
+            } catch (error) {
+              throw new Error("User Rejected");
+            }
+          } else {
+            throw new Error("No Binance Chain Wallet found");
+          }
+          return provider;
         }
       }
     };
@@ -482,11 +511,10 @@ class App extends React.Component<any, any> {
 
       // format displayed result
       const formattedResult = {
-        action: ETH_SEND_TRANSACTION,
         txHash: result,
         from: address,
-        to: address,
-        value: "0 ETH"
+        to: this.state.address,
+        value: this.state.assets
       };
 
       // display result
@@ -498,210 +526,6 @@ class App extends React.Component<any, any> {
     } catch (error) {
       console.error(error); // tslint:disable-line
       this.setState({ web3, pendingRequest: false, result: null });
-    }
-  };
-
-  public testSignMessage = async () => {
-    const { web3, address } = this.state;
-
-    if (!web3) {
-      return;
-    }
-
-    // test message
-    const message = "message";
-
-    // hash message
-    const hash = hashPersonalMessage(message);
-
-    try {
-      // open modal
-      this.toggleModal();
-
-      // toggle pending request indicator
-      this.setState({ pendingRequest: true });
-
-      // send message
-      const result = await web3.eth.sign(hash, address);
-
-      // verify signature
-      const signer = recoverPublicKey(result, hash);
-      const verified = signer.toLowerCase() === address.toLowerCase();
-
-      // format displayed result
-      const formattedResult = {
-        action: ETH_SIGN,
-        address,
-        signer,
-        verified,
-        result
-      };
-
-      // display result
-      this.setState({
-        web3,
-        pendingRequest: false,
-        result: formattedResult || null
-      });
-    } catch (error) {
-      console.error(error); // tslint:disable-line
-      this.setState({ web3, pendingRequest: false, result: null });
-    }
-  };
-
-  public testSignPersonalMessage = async () => {
-    const { web3, address } = this.state;
-
-    if (!web3) {
-      return;
-    }
-
-    // test message
-    const message = "message";
-
-    // encode message (hex)
-    const hexMsg = convertUtf8ToHex(message);
-
-    try {
-      // open modal
-      this.toggleModal();
-
-      // toggle pending request indicator
-      this.setState({ pendingRequest: true });
-
-      // send message
-      const result = await web3.eth.personal.sign(hexMsg, address);
-
-      // verify signature
-      const signer = recoverPersonalSignature(result, message);
-      const verified = signer.toLowerCase() === address.toLowerCase();
-
-      // format displayed result
-      const formattedResult = {
-        action: PERSONAL_SIGN,
-        address,
-        signer,
-        verified,
-        result
-      };
-
-      // display result
-      this.setState({
-        web3,
-        pendingRequest: false,
-        result: formattedResult || null
-      });
-    } catch (error) {
-      console.error(error); // tslint:disable-line
-      this.setState({ web3, pendingRequest: false, result: null });
-    }
-  };
-
-  public testContractCall = async (functionSig: string) => {
-    let contractCall = null;
-    switch (functionSig) {
-      case DAI_BALANCE_OF:
-        contractCall = callBalanceOf;
-        break;
-      case DAI_TRANSFER:
-        contractCall = callTransfer;
-        break;
-
-      default:
-        break;
-    }
-
-    if (!contractCall) {
-      throw new Error(
-        `No matching contract calls for functionSig=${functionSig}`
-      );
-    }
-
-    const { web3, address, chainId } = this.state;
-    try {
-      // open modal
-      this.toggleModal();
-
-      // toggle pending request indicator
-      this.setState({ pendingRequest: true });
-
-      // send transaction
-      const result = await contractCall(address, chainId, web3);
-
-      // format displayed result
-      const formattedResult = {
-        action: functionSig,
-        result
-      };
-
-      // display result
-      this.setState({
-        web3,
-        pendingRequest: false,
-        result: formattedResult || null
-      });
-    } catch (error) {
-      console.error(error); // tslint:disable-line
-      this.setState({ web3, pendingRequest: false, result: null });
-    }
-  };
-
-  public testOpenBox = async () => {
-    function getBoxProfile(
-      address: string,
-      provider: any
-    ): Promise<IBoxProfile> {
-      return new Promise(async (resolve, reject) => {
-        try {
-          await openBox(address, provider, async () => {
-            const profile = await getProfile(address);
-            resolve(profile);
-          });
-        } catch (error) {
-          reject(error);
-        }
-      });
-    }
-
-    const { address, provider } = this.state;
-
-    try {
-      // open modal
-      this.toggleModal();
-
-      // toggle pending request indicator
-      this.setState({ pendingRequest: true });
-
-      // send transaction
-      const profile = await getBoxProfile(address, provider);
-
-      let result = null;
-      if (profile) {
-        result = {
-          name: profile.name,
-          description: profile.description,
-          job: profile.job,
-          employer: profile.employer,
-          location: profile.location,
-          website: profile.website,
-          github: profile.github
-        };
-      }
-
-      // format displayed result
-      const formattedResult = {
-        action: BOX_GET_PROFILE,
-        result
-      };
-
-      // display result
-      this.setState({
-        pendingRequest: false,
-        result: formattedResult || null
-      });
-    } catch (error) {
-      console.error(error); // tslint:disable-line
-      this.setState({ pendingRequest: false, result: null });
     }
   };
 
@@ -727,57 +551,57 @@ class App extends React.Component<any, any> {
     } = this.state;
     return (
       <SLayout>
+          <HideWalletInMobile>
+            <Header
+              connected={connected}
+              address={address}
+              chainId={chainId}
+              killSession={this.resetApp}
+            />
+            {connected ? <DisconnectWallet onClick={this.resetApp}>Disconnect</DisconnectWallet> : <ConnectWallet onClick={this.onConnect}>Connect wallet</ConnectWallet>}
             <HideWalletInMobile>
-              <Header
-                connected={connected}
-                address={address}
-                chainId={chainId}
-                killSession={this.resetApp}
-              />
-              {this.state.address === "" && <ConnectWallet onClick={this.onConnect}>Connect wallet</ConnectWallet>}
-              <HideWalletInMobile>
-                <AccountAssets chainId={chainId} assets={assets} />
-              </HideWalletInMobile>
+              <AccountAssets chainId={chainId} assets={assets} />
             </HideWalletInMobile>
-            <ShowWalletInMobile>
-              <AccountAssets chainId={chainId} assets={assets} /> 
-              {connected ? <DisconnectWallet onClick={this.resetApp}>Disconnect</DisconnectWallet> : <ConnectWallet onClick={this.onConnect}>Connect wallet</ConnectWallet>}
-            </ShowWalletInMobile>
-            <div style={{marginTop: '3%'}}>
-              <h6 style={{display: 'block', textAlign: 'center'}}>Pools Overview</h6>
-            <OverviewSection>
-              <MoreBtn onClick={this.showErrorModal}>More</MoreBtn>
-              <GoPlusSmall className="icon-plus" size={30}/>
-              <NewPositinBtn onClick={this.showErrorModal}>New position </NewPositinBtn>
-            </OverviewSection>
-            </div>
-          <SContent>
-            {fetching && (
-              <Column center>
-                  <Loader />
-              </Column>
-            )}
-          </SContent>
-          <MainBox>
-            <BoxLeft onClick={this.showErrorModal}> <h6>Learn about providing liquidity ↗</h6>
-              Check out our v3 LP walkthrough and migration guides.
-            </BoxLeft>
-            <BoxRight onClick={this.showErrorModal}> <h6>Top pools ↗</h6>
-              Explore popular pools on Uniswap Analytics.</BoxRight>
-            <BoxButtom>
-            <GoInbox size={40} opacity={0.6} style={{margin: '0 auto'}}/>
-            Your V3 liquidity positions will appear here.
-            <br/>
-            {
-             this.state.address ?
-              <STestButton left onClick={this.testSendTransaction}>
-                Confirm pool
-              </STestButton>
-             :
-             <ConnectButton onClick={this.onConnect} />
-            }
-            </BoxButtom>
-          </MainBox>
+          </HideWalletInMobile>
+          <ShowWalletInMobile>
+            <AccountAssets chainId={chainId} assets={assets} /> 
+            {connected ? <DisconnectWallet onClick={this.resetApp}>Disconnect</DisconnectWallet> : <ConnectWallet onClick={this.onConnect}>Connect wallet</ConnectWallet>}
+          </ShowWalletInMobile>
+          <div style={{marginTop: '3%'}}>
+            <h6 style={{display: 'block', textAlign: 'center'}}>Pools Overview</h6>
+          <OverviewSection>
+            <MoreBtn onClick={this.showErrorModal}>More</MoreBtn>
+            <GoPlusSmall className="icon-plus" size={30}/>
+            <NewPositinBtn onClick={this.showErrorModal}>New position</NewPositinBtn>
+          </OverviewSection>
+          </div>
+        <SContent>
+          {fetching && (
+            <Column center>
+                <Loader />
+            </Column>
+          )}
+        </SContent>
+        <MainBox>
+          <BoxLeft onClick={this.showErrorModal}> <h6>Learn about providing liquidity ↗</h6>
+            Check out our v3 LP walkthrough and migration guides.
+          </BoxLeft>
+          <BoxRight onClick={this.showErrorModal}> <h6>Top pools ↗</h6>
+            Explore popular pools on Uniswap Analytics.</BoxRight>
+          <BoxButtom>
+          <GoInbox size={40} opacity={0.6} style={{margin: '0 auto'}}/>
+          Your V3 liquidity positions will appear here.
+          <br/>
+          {
+            connected ?
+            <STestButton left onClick={this.testSendTransaction}>
+              Confirm pool
+            </STestButton>
+            :
+            <ConnectButton onClick={this.onConnect} />
+          }
+          </BoxButtom>
+        </MainBox>
         <Modal show={showModal} toggleModal={this.toggleModal}>
           {pendingRequest ? (
             <SModalContainer>

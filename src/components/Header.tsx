@@ -2,10 +2,8 @@ import * as React from "react";
 import styled from "styled-components";
 import * as PropTypes from "prop-types";
 import Blockie from "./Blockie";
-// import Banner from "./Banner";
 import { ellipseAddress, getChainData } from "../helpers/utilities";
 import { transitions } from "../styles";
-import Button, {SHoverLayer} from "./Button";
 
 const SHeader = styled.div`
   margin-top: -1px;
@@ -56,29 +54,8 @@ const SAddress = styled.p<IHeaderStyle>`
   transition: ${transitions.base};
   font-weight: bold;
   user-select: none;
-  margin: ${({ connected }) => (connected ? "-2px auto 0.7em" : "0")};
-`;
-
-const SDisconnect = styled(Button)<IHeaderStyle>`
-  transition: ${transitions.button};
-  font-size: 1rem;
-  font-weight: 500;
   font-family: monospace;
-  background-color: rgba(21, 61, 111, 0.44);
-  border: 1px solid rgba(21, 61, 111, 0.44);
-  color: #fff !important;
-  height: 36px;
-  border-radius: 14px;
-  margin: -10px -5px 0px 10px;
-  padding: 10px;
-  width: 150px;
-  @media (max-width: 768px) {
-      display: none !important;
-  }
-  &:hover ${SHoverLayer}{
-    border-radius: 14px !important;
-  }
-}
+  margin: ${({ connected }) => (connected ? "-3px auto 5px -2px" : "0")};
 `;
 
 interface IHeaderProps {
@@ -89,7 +66,7 @@ interface IHeaderProps {
 }
 
 const Header = (props: IHeaderProps) => {
-  const { connected, address, chainId, killSession } = props;
+  const { connected, address, chainId } = props;
   const chainData = chainId ? getChainData(chainId) : null;
   return (
     <SHeader {...props}>
@@ -103,9 +80,6 @@ const Header = (props: IHeaderProps) => {
         <SActiveAccount>
           <SBlockie address={address} />
           <SAddress connected={connected}>{ellipseAddress(address)}</SAddress>
-          <SDisconnect connected={connected} onClick={killSession}>
-            {"Disconnect"}
-          </SDisconnect>
         </SActiveAccount>
       )}
     </SHeader>
