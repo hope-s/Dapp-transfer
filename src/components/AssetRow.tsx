@@ -23,7 +23,7 @@ const SAssetRowRight = styled.div`
   flex-wrap: no-wrap;
   margin: 10px 5px 0px 0px;
   @media (max-width: 768px) {
-    margin: 11px 13px;
+    margin: 11px 13px ;
   }
 `;
 

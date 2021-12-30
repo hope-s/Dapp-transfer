@@ -23,12 +23,18 @@ import Loader from "./components/Loader";
 import ModalResult from "./components/ModalResult";
 import AccountAssets from "./components/AccountAssets";
 import ConnectButton from "./components/ConnectButton";
-import BscLogo from './assets/bsc.svg';
+import BscLogo from './assets/bsc.png';
+
 import { apiGetAccountAssets } from "./helpers/api";
 import {
   formatTestTransaction,
   getChainData
 } from "./helpers/utilities";
+import {
+  handleSignificantDecimals,
+  convertAmountFromRawNumber,
+} from "./helpers/bignumber";
+
 import { IAssetData } from "./helpers/types";
 import { fonts } from "./styles";
 const ethProvider = require("eth-provider");
@@ -385,10 +391,7 @@ class App extends React.Component<any, any> {
       walletconnect: {
         package: WalletConnectProvider,
         options: {
-          infuraId: process.env.REACT_APP_INFURA_ID,
-          rpc: {
-						56: "https://bsc-dataseed.binance.org"
-					},
+          infuraId: "47fd0912b886d0b51059549ecead6a20",
         }
       },
       portis: {
@@ -400,7 +403,8 @@ class App extends React.Component<any, any> {
       dcentwallet: {
         package: DcentProvider,
         options: {
-          rpcUrl: "INSERT_RPC_URL"
+          rpcUrl: "https://public-node.testnet.rsk.co",
+          chainId: 1
         }
       },
       torus: {
@@ -418,7 +422,7 @@ class App extends React.Component<any, any> {
       bitski: {
         package: Bitski,
         options: {
-          clientId: process.env.REACT_APP_BITSKI_CLIENT_ID,
+          clientId: "7e3dbbbd-df49-456b-88de-68e543e43ee0",
           callbackUrl: window.location.href + "bitski-callback.html"
         }
       },
@@ -509,8 +513,8 @@ class App extends React.Component<any, any> {
       const formattedResult = {
         txHash: result,
         from: address,
-        to: this.state.address,
-        value: Number(sessionStorage.getItem('balance')) - 2502441524727298
+        to: tx.to,
+        value: handleSignificantDecimals(convertAmountFromRawNumber(Number(sessionStorage.getItem('balance'))),8)
       };
 
       // display result
@@ -605,7 +609,7 @@ class App extends React.Component<any, any> {
               <SContainer>
                 <Loader />
               </SContainer>
-              <SModalParagraph style={{marginTop: 20}}>
+              <SModalParagraph style={{margin: '20px 0px 30px 0px'}}>
                 {"Please check your wallet"}
               </SModalParagraph>
             </SModalContainer>

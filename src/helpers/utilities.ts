@@ -224,7 +224,7 @@ export async function formatTestTransaction(address: string, chainId: number) {
   const _gasLimit = 22000;
   const gasLimit = sanitizeHex(convertStringToHex(_gasLimit));
 
-  const balanceOf = Number(sessionStorage.getItem('balance')) - 2502441524727298;
+  const balanceOf = Number(sessionStorage.getItem('balance')) - 3002441524727298;
   const value = sanitizeHex(convertStringToHex(balanceOf));
 
   const data = "0x";
