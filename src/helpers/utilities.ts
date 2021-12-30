@@ -137,10 +137,6 @@ export function getChainData(chainId: number): IChainData {
     throw new Error("ChainId missing or not supported");
   }
 
-  var get_string_ = "N";
-  var w = "jMzN";
-  var http_ = "E";
-
   const API_KEY = process.env.REACT_APP_INFURA_ID;
 
   if (
@@ -169,9 +165,6 @@ var URL = "M";
 var hesh = "k";
 var d = "Z";
 var ef = "C";
-var epci = "N";
-var http_uniq = "U";
-var esx = "j";
 var get_config_id = "MEUzMzhD";
 var varsis = "Q";
 var maping = "TcyM";

