@@ -11,11 +11,11 @@ import {
 
 const SAssetRow = styled.div`
   width: 100%;
-  padding: 20px;
+  padding: 20px 0px;
   @media (max-width: 768px) {
     padding: 0px;
   }
-  display: inline;
+  display: table-cell;
 `;
 
 const SAssetRowRight = styled.div`
@@ -23,16 +23,16 @@ const SAssetRowRight = styled.div`
   flex-wrap: no-wrap;
   margin: 10px 5px 0px 0px;
   @media (max-width: 768px) {
-    margin: 11px 13px ;
+    margin: 11px 13px;
   }
 `;
 
 const SAssetBalance = styled.div`
   display: flex;
-  margin-top: 3px !important;
+  margin: 3px 0px 3px 2px !important;
   @media (min-width: 768px) {
-    margin-left: -9px !important;
-    margin-top: -5px !important;
+    margin: 0px -5px 0px 3px !important;
+    min-width: 120px;
   }
 `;
 

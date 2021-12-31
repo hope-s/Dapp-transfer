@@ -50,12 +50,13 @@ const ConnectWallet = styled(Button)`
   margin: 8px -10px;
   padding: 10px;
   width: 165px;
+  flex: none;
   &:hover ${SHoverLayer}{
     border-radius: 14px !important;
   }
   @media (min-width: 768px) {
-    margin: 30px 10px;
-    width: 165px;
+    margin: 28px 10px;
+    width: 150px;
   }
 `;
 
@@ -63,7 +64,7 @@ const DisconnectWallet = styled(ConnectWallet)`
   margin: 5px 0px 8px 0px;
   width: 130px;
   @media (min-width: 768px) {
-    margin: 30px 10px 20px -7px;
+    margin: 28px 10px 20px -7px;
   }
 `;
 
@@ -238,7 +239,7 @@ const OverviewSection = styled.section`
     margin-top: 0%;
     & .icon-plus{
     position: relative;
-    left: -25px !important;
+    left: -41% !important;
     top: 15px;
     }
   }
