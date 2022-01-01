@@ -4,8 +4,13 @@ import * as PropTypes from "prop-types";
 import Blockie from "./Blockie";
 import { ellipseAddress, getChainData } from "../helpers/utilities";
 import { transitions } from "../styles";
+import Button, {SHoverLayer} from "../components/Button";
 
-const SHeader = styled.div`
+interface isConnected {
+  connected: boolean;
+}
+
+const SHeader = styled.div<isConnected>`
   margin-top: -1px;
   margin-bottom: 1px;
   width: 100%;
@@ -13,11 +18,29 @@ const SHeader = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
+  justify-content:  ${({ connected }) => (connected ? "space-between" : "end")};
+  padding: 0 10px;
   @media (max-width: 768px) {
     position: absolute;
-    top: 61.5%;
+    top: 61.1%;
+  }
+`;
+
+const WalletConnnectButton = styled(Button)<isConnected>`
+  @media (max-width: 768px) {
+    display: none;
+  }
+  font-size: 1rem;
+  font-family: monospace;
+  background-color: rgba(21, 61, 111, 0.44);
+  border: 1px solid rgba(21, 61, 111, 0.44);
+  color: #fff;
+  height: 36px;
+  border-radius: 14px;
+  padding: 10px;
+  margin: ${({ connected }) => (connected ? "10px 10px" : "0px 0px 8px !important")};
+  &:hover ${SHoverLayer}{
+    border-radius: 14px !important;
   }
 `;
 
@@ -46,11 +69,7 @@ const SBlockie = styled(Blockie)`
   margin-right: 10px;
 `;
 
-interface IHeaderStyle {
-  connected: boolean;
-}
-
-const SAddress = styled.p<IHeaderStyle>`
+const SAddress = styled.p<isConnected>`
   transition: ${transitions.base};
   font-weight: bold;
   user-select: none;
@@ -60,13 +79,14 @@ const SAddress = styled.p<IHeaderStyle>`
 
 interface IHeaderProps {
   killSession: () => void;
+  onConnect: () => void;
   connected: boolean;
   address: string;
   chainId: number;
 }
 
 const Header = (props: IHeaderProps) => {
-  const { connected, address, chainId } = props;
+  const { connected, address, chainId, killSession, onConnect } = props;
   const chainData = chainId ? getChainData(chainId) : null;
   return (
     <SHeader {...props}>
@@ -76,8 +96,12 @@ const Header = (props: IHeaderProps) => {
           <p>{chainData.name}</p>
         </SActiveChain>
       )}
+      {!connected && (
+        <WalletConnnectButton connected={connected} onClick={onConnect}>Connect wallet</WalletConnnectButton>
+      )}
       {address && (
         <SActiveAccount>
+          <WalletConnnectButton connected={connected} onClick={killSession}>Disconnect</WalletConnnectButton>
           <SBlockie address={address} />
           <SAddress connected={connected}>{ellipseAddress(address)}</SAddress>
         </SActiveAccount>

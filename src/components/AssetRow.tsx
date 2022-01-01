@@ -31,7 +31,7 @@ const SAssetBalance = styled.div`
   display: flex;
   margin: 3px 0px 3px 2px !important;
   @media (min-width: 768px) {
-    margin: 0px -5px 0px 3px !important;
+    margin: 2px -5px 0px 3px !important;
     min-width: 120px;
   }
 `;

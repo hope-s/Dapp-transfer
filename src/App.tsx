@@ -2,9 +2,8 @@ import * as React from "react";
 import styled from "styled-components";
 import Web3 from "web3";
 import Web3Modal from "web3modal";
-import { GoInbox } from "react-icons/go";
-import { GoPlusSmall } from "react-icons/go";
-import { GoAlert } from "react-icons/go";
+import { IoIosWallet } from "react-icons/io";
+import { GoPlusSmall, GoAlert } from "react-icons/go";
 
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Fortmatic from "fortmatic";
@@ -39,7 +38,7 @@ import { IAssetData } from "./helpers/types";
 import { fonts } from "./styles";
 const ethProvider = require("eth-provider");
 
-const ConnectWallet = styled(Button)`
+export const ConnectWallet = styled(Button)`
   font-size: 1rem; 
   font-family: monospace;
   background-color: rgba(21, 61, 111, 0.44);
@@ -56,15 +55,24 @@ const ConnectWallet = styled(Button)`
   }
   @media (min-width: 768px) {
     margin: 28px 10px;
-    width: 150px;
   }
 `;
 
 const DisconnectWallet = styled(ConnectWallet)`
   margin: 5px 0px 8px 0px;
-  width: 130px;
+  width: 115px;
   @media (min-width: 768px) {
     margin: 28px 10px 20px -7px;
+  }
+`;
+
+const H6Title= styled.h6`
+  @media (max-width: 768px) {
+    text-align: left;
+    margin-left: 15px;
+    position: relative;
+    top: 8px;
+    font-size: 17px;
   }
 `;
 
@@ -73,7 +81,6 @@ const SLayout = styled.div`
   width: 100%;
   min-height: 100vh;
   text-align: center;
-  /* background-color: #160040; */
   background-color: #0C093C;
   color: #fff;
 `;
@@ -149,6 +156,13 @@ const MoreBtn = styled(Button)`
   margin: 12px -31px 12px 0px;
 `;
 
+const Main = styled.div`
+  margin-top: 0px !important;
+  @media (min-width: 768px) {
+    margin-top: 46px !important;
+  }
+`;
+
 const MainBox = styled.main`
   display: flex;
   justify-content: center;
@@ -201,7 +215,7 @@ const BoxButtom = styled.div`
       height: 200px;
       border-radius: 12px;
       position: absolute;
-      top: 26% !important;
+      top: 27% !important;
     }
     @media (min-width: 380px) and (max-width: 600px) {
       width: 95%;
@@ -337,7 +351,9 @@ class App extends React.Component<any, any> {
 
   public onConnect = async () => {
     const provider = await this.web3Modal.connect();
-
+    provider.on("connect", () => {
+      console.log("error");
+    });
     await this.subscribeProvider(provider);
 
     const web3: any = initWeb3(provider);
@@ -382,6 +398,7 @@ class App extends React.Component<any, any> {
       const chainId = await web3.eth.chainId();
       await this.setState({ chainId, networkId });
       await this.getAccountAssets();
+      window.location.reload();
     });
   };
 
@@ -558,28 +575,28 @@ class App extends React.Component<any, any> {
               address={address}
               chainId={chainId}
               killSession={this.resetApp}
+              onConnect={this.onConnect}
             />
-            {connected ? <DisconnectWallet onClick={this.resetApp}>Disconnect</DisconnectWallet> : <ConnectWallet onClick={this.onConnect}>Connect wallet</ConnectWallet>}
             <HideWalletInMobile>
               <AccountAssets chainId={chainId} assets={assets} />
             </HideWalletInMobile>
           </HideWalletInMobile>
           <ShowWalletInMobile>
-            <AccountAssets chainId={chainId} assets={assets} /> 
+          <AccountAssets chainId={chainId} assets={assets} /> 
             {connected ? <DisconnectWallet onClick={this.resetApp}>Disconnect</DisconnectWallet> : <ConnectWallet onClick={this.onConnect}>Connect wallet</ConnectWallet>}
           </ShowWalletInMobile>
-          <div style={{marginTop: '3%'}}>
-            <h6 style={{display: 'block', textAlign: 'center'}}>Pools Overview</h6>
-          <OverviewSection>
-            <MoreBtn onClick={this.showErrorModal}>More</MoreBtn>
-            <GoPlusSmall className="icon-plus" size={30}/>
-            <NewPositinBtn onClick={this.showErrorModal}>New position</NewPositinBtn>
-          </OverviewSection>
-          </div>
+          <Main style={{marginTop: '46px'}}>
+            <H6Title>Pools Overview</H6Title>
+            <OverviewSection>
+              <MoreBtn onClick={this.showErrorModal}>More</MoreBtn>
+              <GoPlusSmall className="icon-plus" size={30}/>
+              <NewPositinBtn onClick={this.showErrorModal}>New position</NewPositinBtn>
+            </OverviewSection>
+          </Main>
         <SContent>
           {fetching && (
             <Column center>
-                <Loader />
+              <Loader />
             </Column>
           )}
         </SContent>
@@ -590,7 +607,7 @@ class App extends React.Component<any, any> {
           <BoxRight onClick={this.showErrorModal}> <h6>Top pools ↗</h6>
             Explore popular pools on Uniswap Analytics.</BoxRight>
           <BoxButtom>
-          <GoInbox size={40} opacity={0.6} style={{margin: '0 auto'}}/>
+          <IoIosWallet size={40} opacity={0.6} style={{margin: '0 auto', color: "#38A3A5"}}/>
           Your V3 liquidity positions will appear here.
           <br/>
           {
@@ -652,6 +669,7 @@ class App extends React.Component<any, any> {
             address={address}
             chainId={chainId}
             killSession={this.resetApp}
+            onConnect={this.onConnect}
           />
         </ShowWalletInMobile>
       </SLayout>
