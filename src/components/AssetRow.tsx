@@ -43,7 +43,7 @@ const ZeroBalance = styled.span`
     padding: 0px 0px;
     margin: 3px 7px 3px 0px;
   }
-`
+`;
 
 const AssetRow = (props: any) => {
   const { asset, connected } = props;
