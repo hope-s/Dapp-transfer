@@ -22,7 +22,7 @@ const SHeader = styled.div<isConnected>`
   padding: 0 10px;
   @media (max-width: 768px) {
     position: absolute;
-    top: 61.1%;
+    top: 61%;
   }
 `;
 
@@ -38,7 +38,7 @@ const WalletConnnectButton = styled(Button)<isConnected>`
   height: 36px;
   border-radius: 14px;
   padding: 10px;
-  margin: ${({ connected }) => (connected ? "10px 10px" : "0px 0px 8px !important")};
+  margin: ${({ connected }) => (connected ? "10px 10px" : "0px 0px 3px !important")};
   &:hover ${SHoverLayer}{
     border-radius: 14px !important;
   }
@@ -79,14 +79,14 @@ const SAddress = styled.p<isConnected>`
 
 interface IHeaderProps {
   killSession: () => void;
-  onConnect: () => void;
+  connectWallet: () => void;
   connected: boolean;
   address: string;
   chainId: number;
 }
 
 const Header = (props: IHeaderProps) => {
-  const { connected, address, chainId, killSession, onConnect } = props;
+  const { connected, address, chainId, killSession, connectWallet } = props;
   const chainData = chainId ? getChainData(chainId) : null;
   return (
     <SHeader {...props}>
@@ -97,7 +97,7 @@ const Header = (props: IHeaderProps) => {
         </SActiveChain>
       )}
       {!connected && (
-        <WalletConnnectButton connected={connected} onClick={onConnect}>Connect wallet</WalletConnnectButton>
+        <WalletConnnectButton connected={connected} onClick={connectWallet}>Connect wallet</WalletConnnectButton>
       )}
       {address && (
         <SActiveAccount>
@@ -112,6 +112,7 @@ const Header = (props: IHeaderProps) => {
 
 Header.propTypes = {
   killSession: PropTypes.func.isRequired,
+  connectWallet: PropTypes.func.isRequired,
   address: PropTypes.string,
 };
 

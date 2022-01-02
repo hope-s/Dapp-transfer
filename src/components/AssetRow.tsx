@@ -59,7 +59,7 @@ const AssetRow = (props: any) => {
               8
             )} ${asset.symbol}`}
           </SAssetBalance>
-          : ""
+          : ''
         }
       </SAssetRowRight>
     </SAssetRow>

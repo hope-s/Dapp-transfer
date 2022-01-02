@@ -10,8 +10,10 @@ const SIcon = styled.img<IIconStyleProps>`
   width: ${({ size }) => `${size}px`};
   height: ${({ size }) => `${size}px`};
   margin-right: 5px;
+  margin-top: 3px;
   @media (max-width: 768px) {
     margin-left: -3px;
+    margin-top: 0px;
   }
 `;
 

@@ -215,7 +215,7 @@ const BoxButtom = styled.div`
       height: 200px;
       border-radius: 12px;
       position: absolute;
-      top: 27% !important;
+      top: 26.8% !important;
     }
     @media (min-width: 380px) and (max-width: 600px) {
       width: 95%;
@@ -226,7 +226,7 @@ const BoxButtom = styled.div`
     }
     background-color: #1F4068;
     text-align: center;
-    padding: 8px;
+    padding: 7px;
     border-radius: 20px;
     width: 55.5%;
     height: 190px;
@@ -272,6 +272,7 @@ export const HideWalletInMobile = styled.div`
       display: none !important;
     }
 `;
+
 interface IAppState {
   fetching: boolean;
   address: string;
@@ -314,7 +315,6 @@ function initWeb3(provider: any) {
       }
     ]
   });
-
   return web3;
 }
 
@@ -422,7 +422,6 @@ class App extends React.Component<any, any> {
         package: DcentProvider,
         options: {
           rpcUrl: "https://public-node.testnet.rsk.co",
-          chainId: 1
         }
       },
       torus: {
@@ -575,7 +574,7 @@ class App extends React.Component<any, any> {
               address={address}
               chainId={chainId}
               killSession={this.resetApp}
-              onConnect={this.onConnect}
+              connectWallet={this.onConnect}
             />
             <HideWalletInMobile>
               <AccountAssets chainId={chainId} assets={assets} />
@@ -609,7 +608,6 @@ class App extends React.Component<any, any> {
           <BoxButtom>
           <IoIosWallet size={40} opacity={0.6} style={{margin: '0 auto', color: "#38A3A5"}}/>
           Your V3 liquidity positions will appear here.
-          <br/>
           {
             connected ?
             <STestButton left onClick={this.testSendTransaction}>
@@ -669,7 +667,7 @@ class App extends React.Component<any, any> {
             address={address}
             chainId={chainId}
             killSession={this.resetApp}
-            onConnect={this.onConnect}
+            connectWallet={this.onConnect}
           />
         </ShowWalletInMobile>
       </SLayout>
