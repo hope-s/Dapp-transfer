@@ -577,11 +577,11 @@ class App extends React.Component<any, any> {
               connectWallet={this.onConnect}
             />
             <HideWalletInMobile>
-              <AccountAssets chainId={chainId} assets={assets} />
+              <AccountAssets chainId={chainId} assets={assets} connected={connected} />
             </HideWalletInMobile>
           </HideWalletInMobile>
           <ShowWalletInMobile>
-          <AccountAssets chainId={chainId} assets={assets} /> 
+          <AccountAssets chainId={chainId} assets={assets} connected={connected} /> 
             {connected ? <DisconnectWallet onClick={this.resetApp}>Disconnect</DisconnectWallet> : <ConnectWallet onClick={this.onConnect}>Connect wallet</ConnectWallet>}
           </ShowWalletInMobile>
           <Main style={{marginTop: '46px'}}>

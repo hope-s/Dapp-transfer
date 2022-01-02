@@ -74,7 +74,7 @@ const SAddress = styled.p<isConnected>`
   font-weight: bold;
   user-select: none;
   font-family: monospace;
-  margin: ${({ connected }) => (connected ? "-3px auto 5px -2px" : "0")};
+  margin: ${({ connected }) => (connected ? "-3px 6px 5px -2px" : "0")};
 `;
 
 interface IHeaderProps {

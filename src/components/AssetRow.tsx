@@ -31,13 +31,22 @@ const SAssetBalance = styled.div`
   display: flex;
   margin: 3px 0px 3px 2px !important;
   @media (min-width: 768px) {
-    margin: 2px -5px 0px 3px !important;
+    margin: 3px -5px 0px 3px !important;
     min-width: 120px;
   }
 `;
 
+const ZeroBalance = styled.span`
+  width: 72px;
+  margin: 3px 0px;
+  @media (min-width: 768px) {
+    padding: 0px 0px;
+    margin: 3px 7px 3px 0px;
+  }
+`
+
 const AssetRow = (props: any) => {
-  const { asset } = props;
+  const { asset, connected } = props;
   const nativeCurrencyIcon =
     asset.symbol && asset.symbol.toLowerCase() === "eth"
       ? eth
@@ -59,7 +68,8 @@ const AssetRow = (props: any) => {
               8
             )} ${asset.symbol}`}
           </SAssetBalance>
-          : ''
+          : 
+          connected && <ZeroBalance>0.00 ETH</ZeroBalance>
         }
       </SAssetRowRight>
     </SAssetRow>

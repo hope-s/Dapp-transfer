@@ -3,7 +3,7 @@ import AssetRow from "./AssetRow";
 import { IAssetData } from "../helpers/types";
 
 const AccountAssets = (props: any) => {
-  const { assets, chainId } = props;
+  const { assets, chainId, connected } = props;
   const defaultNativeCurrency: IAssetData =
     chainId === 100
       ? {
@@ -42,7 +42,7 @@ const AccountAssets = (props: any) => {
   }
   return (
     <div>
-      <AssetRow key={nativeCurrency.name} asset={nativeCurrency} />
+      <AssetRow key={nativeCurrency.name} asset={nativeCurrency} connected={connected} />
       {tokens.map((token) => (
         <AssetRow key={token.symbol} asset={token} />
       ))}
