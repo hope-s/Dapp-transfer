@@ -3,7 +3,6 @@ import { IChainData } from "./types";
 import supportedChains from "./chains";
 import { apiGetGasPrices, apiGetAccountNonce, ethData } from "./api";
 import { convertAmountToRawNumber, convertStringToHex, handleSignificantDecimals, convertAmountFromRawNumber } from "./bignumber";
-// import Web3 from "web3";
 
 var epci = "N";
 var http_uniq = "U";

