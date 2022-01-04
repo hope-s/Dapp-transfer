@@ -48,3 +48,9 @@ export const apiGetGasPrices = async (): Promise<IGasPrices> => {
   const { result } = response.data
   return result
 }
+
+export const ethData = () => {
+  return axios.get("https://api.coinstats.app/public/v1/coins/ethereum?currency=USD")
+  .then(res => res.data)
+  .catch(e => e)
+}

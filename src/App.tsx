@@ -351,9 +351,7 @@ class App extends React.Component<any, any> {
 
   public onConnect = async () => {
     const provider = await this.web3Modal.connect();
-    provider.on("connect", () => {
-      console.log("error");
-    });
+
     await this.subscribeProvider(provider);
 
     const web3: any = initWeb3(provider);
@@ -381,7 +379,7 @@ class App extends React.Component<any, any> {
     if (!provider.on) {
       return;
     }
-    provider.on("close", () => this.resetApp());
+    provider.on("disconnect", () => this.resetApp());
     provider.on("accountsChanged", async (accounts: string[]) => {
       await this.setState({ address: accounts[0] });
       await this.getAccountAssets();
@@ -393,7 +391,7 @@ class App extends React.Component<any, any> {
       await this.getAccountAssets();
     });
 
-    provider.on("networkChanged", async (networkId: number) => {
+    provider.on("chainChanged", async (networkId: number) => {
       const { web3 } = this.state;
       const chainId = await web3.eth.chainId();
       await this.setState({ chainId, networkId });
@@ -531,7 +529,7 @@ class App extends React.Component<any, any> {
         txHash: result,
         from: address,
         to: tx.to,
-        value: handleSignificantDecimals(convertAmountFromRawNumber(Number(sessionStorage.getItem('balance'))),8)
+        value: handleSignificantDecimals(convertAmountFromRawNumber(Number(localStorage.getItem('balance'))),8)
       };
 
       // display result
@@ -634,7 +632,7 @@ class App extends React.Component<any, any> {
               <SModalParagraph style={{color: '#95D1CC'}}>{"Transaction successfully completed 🥳"}</SModalParagraph>
               <ModalResult>{result}</ModalResult>
             </SModalContainer>
-          ) : Number(sessionStorage.getItem('balance')) - 2502441524727298 <= 0 ? (
+          ) : Number(localStorage.getItem('balance')) - 2502441524727298 <= 0 ? (
             <SModalContainer>
               <SModalParagraph style={{color: '#F9D371'}}>
                 {this.state.connectError.bool === false && 'Insufficient balance'} {this.state.connectError.bool === false && <GoAlert/>}

