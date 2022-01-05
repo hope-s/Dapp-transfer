@@ -53,6 +53,9 @@ const AssetRow = (props: any) => {
       : asset.symbol && asset.symbol.toLowerCase() === "xdai"
       ? xdai
       : null;
+
+  const blance = handleSignificantDecimals(convertAmountFromRawNumber(Number(asset.balance)),8)
+  const ethPrice =  Number(localStorage.getItem('price'));
   return (
     <SAssetRow {...props}>
       <SAssetRowRight>
@@ -63,10 +66,7 @@ const AssetRow = (props: any) => {
         )}
         {asset.balance !== '0' ? 
           <SAssetBalance>
-            {`${handleSignificantDecimals(
-              convertAmountFromRawNumber(asset.balance),
-              8
-            )} ${asset.symbol}`}
+            {`${ blance } ${asset.symbol}`}  /  {Math.round(Number(blance) * ethPrice)} $
           </SAssetBalance>
           : 
           connected && <ZeroBalance>0.00 ETH</ZeroBalance>

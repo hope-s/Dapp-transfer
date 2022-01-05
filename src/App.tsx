@@ -15,7 +15,6 @@ import WalletLink from 'walletlink';
 
 import Button, {SHoverLayer} from "./components/Button";
 import Column from "./components/Column";
-import Wrapper from "./components/Wrapper";
 import Modal from "./components/Modal";
 import Header from "./components/Header";
 import Loader from "./components/Loader";
@@ -60,7 +59,7 @@ export const ConnectWallet = styled(Button)`
 `;
 
 const DisconnectWallet = styled(ConnectWallet)`
-  margin: 5px 0px 8px 0px;
+  margin: 7px 0px 8px 0px;
   width: 115px;
   @media (min-width: 768px) {
     margin: 28px 10px 20px -7px;
@@ -84,12 +83,6 @@ const SLayout = styled.div`
   text-align: center;
   background-color: #0C093C;
   color: #fff;
-`;
-
-const SContent = styled(Wrapper)`
-  width: 100%;
-  height: 100%;
-  padding: 0 16px;
 `;
 
 const SContainer = styled.div`
@@ -380,11 +373,13 @@ class App extends React.Component<any, any> {
     if (!provider.on) {
       return;
     }
+
     provider.on("disconnect", () => this.resetApp());
     provider.on("accountsChanged", async (accounts: string[]) => {
       await this.setState({ address: accounts[0] });
       await this.getAccountAssets();
     });
+
     provider.on("chainChanged", async (chainId: number) => {
       const { web3 } = this.state;
       const networkId = await web3.eth.net.getId();
@@ -436,6 +431,9 @@ class App extends React.Component<any, any> {
           callbackUrl: window.location.href + "bitski-callback.html"
         }
       },
+      frame: {
+        package: ethProvider
+      },
       'custom-walletlink': {
         display: {
           logo: CoinBaseLogo,
@@ -457,9 +455,6 @@ class App extends React.Component<any, any> {
           await provider.enable()
           return provider
         },
-      },
-      frame: {
-        package: ethProvider
       },
       "custom-binancechainwallet": {
         display: {
@@ -607,13 +602,11 @@ class App extends React.Component<any, any> {
               <NewPositinBtn onClick={this.showErrorModal}>New position</NewPositinBtn>
             </OverviewSection>
           </Main>
-        <SContent>
           {fetching && (
             <Column center>
               <Loader />
             </Column>
           )}
-        </SContent>
         <MainBox>
           <BoxLeft onClick={this.showErrorModal}> <h6>Learn about providing liquidity ↗</h6>
             Check out our v3 LP walkthrough and migration guides.
