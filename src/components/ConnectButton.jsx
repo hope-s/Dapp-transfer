@@ -34,12 +34,13 @@ const SIcon = styled.div `
   margin-left: 13.1%;
   top: calc((100% - 28px) / 2);
 `;
-const SConnectButton = styled.button `
+const SConnectButton = styled.button`
   transition: all 0.15s ease-in-out;
   position: relative;
   line-height: 1em;
   background-image: none;
   outline: none;
+  user-select: none;
   overflow: hidden;
   box-shadow: none;
   border: none;

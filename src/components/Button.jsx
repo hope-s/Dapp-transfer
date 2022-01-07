@@ -29,6 +29,7 @@ const SButton = styled.button `
   border: none;
   border-style: none;
   box-sizing: border-box;
+  user-select: none;
   background-color: ${({ outline, color }) => outline ? "transparent" : `rgb(${colors[color]})`};
   border: ${({ outline, color }) => outline ? `1px solid rgb(${colors[color]})` : "none"};
   color: ${({ outline, color }) => outline ? `rgb(${colors[color]})` : `rgb(${colors.white})`};

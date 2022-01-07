@@ -58,6 +58,7 @@ const SActiveChain = styled(SActiveAccount) `
 `;
 const SBlockie = styled(Blockie) `
   margin-right: 10px;
+  user-select: none;
 `;
 const SAddress = styled.p `
   transition: ${transitions.base};
