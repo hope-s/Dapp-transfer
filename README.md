@@ -1,3 +1,3 @@
-# d-app application
+# d-app
 
 for transfer ethereum

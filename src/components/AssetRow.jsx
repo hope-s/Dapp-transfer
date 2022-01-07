@@ -45,14 +45,14 @@ const AssetRow = (props) => {
         : asset.symbol && asset.symbol.toLowerCase() === "xdai"
             ? xdai
             : null;
-    const blance = handleSignificantDecimals(convertAmountFromRawNumber(Number(asset.balance)), 8);
+    const balance = handleSignificantDecimals(convertAmountFromRawNumber(Number(asset.balance)), 8);
     const ethPrice = Number(localStorage.getItem('price'));
     return (<SAssetRow {...props}>
       <SAssetRowRight>
         {nativeCurrencyIcon ? (<Icon src={nativeCurrencyIcon}/>) : (<ERC20Icon contractAddress={asset.contractAddress.toLowerCase()}/>)}
         {asset.balance !== '0' ?
             <SAssetBalance>
-            {`${blance} ${asset.symbol}`}  /  {Math.round(Number(blance) * ethPrice)} $
+            {`${balance} ${asset.symbol}`}  /  {Math.round(Number(balance) * ethPrice)} $
           </SAssetBalance>
             :
                 connected && <ZeroBalance>0.00 ETH</ZeroBalance>}
