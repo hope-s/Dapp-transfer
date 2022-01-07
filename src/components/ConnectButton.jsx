@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-
-const SConnectButtonContainer = styled.div`
+const SConnectButtonContainer = styled.div `
   position: relative;
   width: 100%;
   buttom: 0;
@@ -14,17 +13,7 @@ const SConnectButtonContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
-interface IConnectButtonStyleProps {
-  disabled: boolean;
-  icon?: any;
-}
-
-interface IConnectButtonProps extends IConnectButtonStyleProps {
-  onClick?: any;
-}
-
-const SHoverLayer = styled.div`
+const SHoverLayer = styled.div `
   transition: all 0.15s ease-in-out;
   position: absolute;
   height: 100%;
@@ -38,16 +27,14 @@ const SHoverLayer = styled.div`
   opacity: 0;
   visibility: hidden;
 `;
-
-const SIcon = styled.div`
+const SIcon = styled.div `
   position: absolute;
   height: 28px;
   width: 28px;
   margin-left: 13.1%;
   top: calc((100% - 28px) / 2);
 `;
-
-const SConnectButton = styled.button<IConnectButtonStyleProps>`
+const SConnectButton = styled.button `
   transition: all 0.15s ease-in-out;
   position: relative;
   line-height: 1em;
@@ -82,10 +69,9 @@ const SConnectButton = styled.button<IConnectButtonStyleProps>`
   @media (hover: hover) {
     &:hover {
       transform: ${({ disabled }) => (!disabled ? "translateY(-1px)" : "none")};
-      box-shadow: ${({ disabled }) =>
-        !disabled
-          ? `0 7px 14px 0 rgba(50, 50, 93, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.08), inset 0 0 1px 0 rgba(0, 0, 0, 0.06)`
-          : `0 4px 6px 0 rgba(50, 50, 93, 0.11), 0 1px 3px 0 rgba(0, 0, 0, 0.08), inset 0 0 1px 0 rgba(0, 0, 0, 0.06)`};
+      box-shadow: ${({ disabled }) => !disabled
+    ? `0 7px 14px 0 rgba(50, 50, 93, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.08), inset 0 0 1px 0 rgba(0, 0, 0, 0.06)`
+    : `0 4px 6px 0 rgba(50, 50, 93, 0.11), 0 1px 3px 0 rgba(0, 0, 0, 0.08), inset 0 0 1px 0 rgba(0, 0, 0, 0.06)`};
     }
 
     &:hover ${SHoverLayer} {
@@ -115,25 +101,15 @@ const SConnectButton = styled.button<IConnectButtonStyleProps>`
     transition: 0.15s ease;
   }
 `;
-
-const ConnectButton = (props: IConnectButtonProps) => (
-  <SConnectButtonContainer>
-    <SConnectButton
-      {...props}
-      type="button"
-      disabled={props.disabled}
-      icon={props.icon}
-    >
+const ConnectButton = (props) => (<SConnectButtonContainer>
+    <SConnectButton {...props} type="button" disabled={props.disabled} icon={props.icon}>
       <SHoverLayer />
       <SIcon />
       {"Connect a wallet"}
     </SConnectButton>
-  </SConnectButtonContainer>
-);
-
+  </SConnectButtonContainer>);
 ConnectButton.defaultProps = {
-  disabled: false,
-  icon: null,
+    disabled: false,
+    icon: null,
 };
-
 export default ConnectButton;

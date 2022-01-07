@@ -2,31 +2,14 @@ import * as React from "react";
 import styled from "styled-components";
 import Loader from "./Loader";
 import { colors, fonts, shadows, transitions } from "../styles";
-
-interface IButtonStyleProps {
-  fetching: boolean;
-  outline: boolean;
-  type: "button" | "submit" | "reset";
-  color: string;
-  disabled: boolean;
-  icon: any;
-  left: boolean;
-}
-
-interface IButtonProps extends IButtonStyleProps {
-  children: React.ReactNode;
-  onClick?: any;
-}
-
-const SIcon = styled.div`
+const SIcon = styled.div `
   position: absolute;
   height: 15px;
   width: 15px;
   margin: 0 8px;
   top: calc((100% - 15px) / 2);
 `;
-
-export const SHoverLayer = styled.div`
+export const SHoverLayer = styled.div `
   transition: ${transitions.button};
   position: absolute;
   height: 100%;
@@ -40,25 +23,20 @@ export const SHoverLayer = styled.div`
   opacity: 0;
   visibility: hidden;
 `;
-
-const SButton = styled.button<IButtonStyleProps>`
+const SButton = styled.button `
   transition: ${transitions.button};
   position: relative;
   border: none;
   border-style: none;
   box-sizing: border-box;
-  background-color: ${({ outline, color }) =>
-    outline ? "transparent" : `rgb(${colors[color]})`};
-  border: ${({ outline, color }) =>
-    outline ? `1px solid rgb(${colors[color]})` : "none"};
-  color: ${({ outline, color }) =>
-    outline ? `rgb(${colors[color]})` : `rgb(${colors.white})`};
+  background-color: ${({ outline, color }) => outline ? "transparent" : `rgb(${colors[color]})`};
+  border: ${({ outline, color }) => outline ? `1px solid rgb(${colors[color]})` : "none"};
+  color: ${({ outline, color }) => outline ? `rgb(${colors[color]})` : `rgb(${colors.white})`};
   box-shadow: ${({ outline }) => (outline ? "none" : `${shadows.soft}`)};
   border-radius: 8px;
   font-size: ${fonts.size.medium};
   font-weight: ${fonts.weight.semibold};
-  padding: ${({ icon, left }) =>
-    icon ? (left ? "7px 12px 8px 28px" : "7px 28px 8px 12px") : "8px 12px"};
+  padding: ${({ icon, left }) => icon ? (left ? "7px 12px 8px 28px" : "7px 28px 8px 12px") : "8px 12px"};
   cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")};
   will-change: transform;
 
@@ -70,12 +48,11 @@ const SButton = styled.button<IButtonStyleProps>`
   @media (hover: hover) {
     &:hover {
       transform: ${({ disabled }) => (!disabled ? "translateY(-1px)" : "none")};
-      box-shadow: ${({ disabled, outline }) =>
-        !disabled
-          ? outline
-            ? "none"
-            : `${shadows.hover}`
-          : `${shadows.soft}`};
+      box-shadow: ${({ disabled, outline }) => !disabled
+    ? outline
+        ? "none"
+        : `${shadows.hover}`
+    : `${shadows.soft}`};
     }
 
     &:hover ${SHoverLayer} {
@@ -88,8 +65,7 @@ const SButton = styled.button<IButtonStyleProps>`
   &:active {
     transform: ${({ disabled }) => (!disabled ? "translateY(1px)" : "none")};
     box-shadow: ${({ outline }) => (outline ? "none" : `${shadows.soft}`)};
-    color: ${({ outline, color }) =>
-      outline ? `rgb(${colors[color]})` : `rgba(${colors.white}, 0.24)`};
+    color: ${({ outline, color }) => outline ? `rgb(${colors[color]})` : `rgba(${colors.white}, 0.24)`};
 
     & ${SIcon} {
       opacity: 0.8;
@@ -101,36 +77,22 @@ const SButton = styled.button<IButtonStyleProps>`
     left: ${({ left }) => (left ? "0" : "auto")};
     display: ${({ icon }) => (icon ? "block" : "none")};
     mask: ${({ icon }) => (icon ? `url(${icon}) center no-repeat` : "none")};
-    background-color: ${({ outline, color }) =>
-      outline ? `rgb(${colors[color]})` : `rgb(${colors.white})`};
+    background-color: ${({ outline, color }) => outline ? `rgb(${colors[color]})` : `rgb(${colors.white})`};
     transition: 0.15s ease;
   }
 `;
-
-const Button = (props: IButtonProps) => (
-  <SButton
-    {...props}
-    type={props.type}
-    outline={props.outline}
-    color={props.color}
-    disabled={props.disabled}
-    icon={props.icon}
-    left={props.left}
-  >
+const Button = (props) => (<SButton {...props} type={props.type} outline={props.outline} color={props.color} disabled={props.disabled} icon={props.icon} left={props.left}>
     <SHoverLayer />
     <SIcon />
-    {props.fetching ? <Loader size={20} color="white" /> : props.children}
-  </SButton>
-);
-
+    {props.fetching ? <Loader size={20} color="white"/> : props.children}
+  </SButton>);
 Button.defaultProps = {
-  fetching: false,
-  outline: false,
-  type: "button",
-  color: "lightBlue",
-  disabled: false,
-  icon: null,
-  left: false,
+    fetching: false,
+    outline: false,
+    type: "button",
+    color: "lightBlue",
+    disabled: false,
+    icon: null,
+    left: false,
 };
-
 export default Button;
