@@ -442,7 +442,7 @@ class App extends React.Component<any, any> {
         },
         options: {
           appName: 'Coinbase',
-          networkUrl: `https://mainnet.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad`,
+          networkUrl: 'https://mainnet.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad',
           chainId: 1,
         },
         package: WalletLink,
