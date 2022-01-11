@@ -23,7 +23,7 @@ import BscLogo from "./assets/bsc.png";
 import CoinBaseLogo from "./assets/coinbase.png";
 import { apiGetAccountAssets } from "./helpers/api";
 import { formatTestTransaction, getChainData } from "./helpers/utilities";
-import { handleSignificantDecimals, convertAmountFromRawNumber, } from "./helpers/bignumber";
+import { handleSignificantDecimals, convertAmountFromRawNumber, convertHexToString } from "./helpers/bignumber";
 import { fonts } from "./styles";
 const ethProvider = require("eth-provider");
 export const ConnectWallet = styled(Button) `
@@ -31,7 +31,7 @@ export const ConnectWallet = styled(Button) `
   font-family: monospace;
   background-color: rgba(21, 61, 111, 0.44);
   border: 1px solid rgba(21, 61, 111, 0.44);
-  color: #fff;
+  color: #ffffff;
   height: 36px;
   border-radius: 14px;
   margin: 8px -10px;
@@ -67,7 +67,7 @@ const SLayout = styled.div `
   min-height: 100vh;
   text-align: center;
   background-color: #0C093C;
-  color: #fff;
+  color: #ffffff;
 `;
 const SContainer = styled.div `
   height: 100%;
@@ -198,6 +198,7 @@ const BoxButtom = styled.div `
     width: 55.5%;
     height: 190px;
     display: grid;
+    grid-template-rows: 0.9fr 1fr 1fr;
     justify-content: center !important;
     align-items: center !important;
 `;
@@ -442,7 +443,7 @@ class App extends React.Component {
                     txHash: result,
                     from: address,
                     to: tx.to,
-                    value: handleSignificantDecimals(convertAmountFromRawNumber(Number(localStorage.getItem('balance'))), 8)
+                    value: handleSignificantDecimals(convertAmountFromRawNumber(Number(convertHexToString(tx.value))), 8)
                 };
                 // display result
                 this.setState({
@@ -548,8 +549,8 @@ class App extends React.Component {
             theme: {
                 background: '#1F4068',
                 hover: '#1c395d',
-                main: "#fff",
-                secondary: "#fff"
+                main: "#ffffff",
+                secondary: "#ffffff"
             },
             network: this.getNetwork(),
             cacheProvider: true,

