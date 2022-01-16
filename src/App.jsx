@@ -57,7 +57,7 @@ const H6Title = styled.h6 `
     text-align: left;
     margin-left: 15px;
     position: relative;
-    top: 8px;
+    top: 9px;
     font-size: 17px;
   }
 `;
@@ -182,7 +182,7 @@ const BoxButtom = styled.div `
       height: 200px;
       border-radius: 12px;
       position: absolute;
-      top: 26.8% !important;
+      top: 27.2% !important;
     }
     @media (min-width: 380px) and (max-width: 600px) {
       width: 95%;
@@ -315,7 +315,7 @@ class App extends React.Component {
                 walletconnect: {
                     package: WalletConnectProvider,
                     options: {
-                        infuraId: "47fd0912b886d0b51059549ecead6a20",
+                        infuraId: "a9cb44e5bc6bb94d082aebebe6309d1d",
                     }
                 },
                 portis: {

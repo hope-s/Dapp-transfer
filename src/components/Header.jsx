@@ -17,7 +17,7 @@ const SHeader = styled.div `
   padding: 0 10px;
   @media (max-width: 768px) {
     position: absolute;
-    top: 61%;
+    top: 61.4%;
   }
 `;
 const WalletConnnectButton = styled(Button) `

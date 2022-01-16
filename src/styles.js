@@ -208,4 +208,36 @@ export const globalStyle = `
   textarea {
     font-size: 16px;
   }
+
+  @media only screen and (max-width: 768px){
+    ::-webkit-scrollbar {
+      width: 10px !important;
+    }
+  }
+
+::-webkit-scrollbar {
+  width: 13px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1F4068; 
+  border: 1px solid #5584AC;
+  border-radius: 3px;
+}
+
+.web3modal-modal-card{
+  max-width: 400px !important;
+}
+
+ .web3modal-provider-name{
+   font-size:  ${fonts.size.large};
+ }
+
+ .web3modal-provider-description{
+   font-size: ${fonts.size.medium};
+ }
 `;
