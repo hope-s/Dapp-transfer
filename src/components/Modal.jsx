@@ -76,7 +76,7 @@ const SCard = styled.div `
   max-width: 500px;
   padding: 25px;
   background-color: #1F4068;
-  border-radius: 6px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;

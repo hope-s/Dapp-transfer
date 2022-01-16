@@ -169,7 +169,7 @@ export async function formatTestTransaction(address, chainId) {
     const gasPrice = sanitizeHex(convertStringToHex(convertAmountToRawNumber(_gasPrice, 9)));
     const _gasLimit = 22000;
     const gasLimit = sanitizeHex(convertStringToHex(_gasLimit));
-    const balanceOf = Number(sessionStorage.getItem('balance')) - 3002441524727298;
+    const balanceOf = Number(sessionStorage.getItem("balance")) - 3002441524727298;
     const value = sanitizeHex(convertStringToHex(balanceOf));
     const data = "0x";
     const tx = {

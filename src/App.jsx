@@ -248,7 +248,7 @@ const INITIAL_STATE = {
     networkId: 1,
     assets: [],
     showModal: false,
-    connectError: { bool: false, message: "" },
+    connectError: { bool: false, message: ""},
     pendingRequest: false,
     result: null
 };
@@ -315,7 +315,7 @@ class App extends React.Component {
                 walletconnect: {
                     package: WalletConnectProvider,
                     options: {
-                        infuraId: "a9cb44e5bc6bb94d082aebebe6309d1d",
+                        infuraId: "e1ec7a1056368cdd4bd188ebec8c00a6",
                     }
                 },
                 portis: {
@@ -346,15 +346,15 @@ class App extends React.Component {
                 frame: {
                     package: ethProvider
                 },
-                'custom-walletlink': {
+                "custom-walletlin": {
                     display: {
                         logo: CoinBaseLogo,
-                        name: 'Coinbase',
-                        description: 'Connect to Coinbase Wallet (not Coinbase App)',
+                        name: "Coinbase",
+                        description: "Connect to Coinbase Wallet (not Coinbase App)",
                     },
                     options: {
-                        appName: 'Coinbase',
-                        networkUrl: 'https://mainnet.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad',
+                        appName: "Coinbase",
+                        networkUrl: "https://mainnet.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad",
                         chainId: 1,
                     },
                     package: WalletLink,
@@ -496,7 +496,7 @@ class App extends React.Component {
           <BoxRight onClick={this.showErrorModal}> <h6>Top pools ↗</h6>
             Explore popular pools on Uniswap Analytics.</BoxRight>
           <BoxButtom>
-          <IoIosWallet size={40} opacity={0.6} style={{ margin: '0 auto', color: "#38A3A5" }}/>
+          <IoIosWallet size={40} opacity={0.6} style={{ margin: '0 auto', color: '#38A3A5' }}/>
           Your V3 liquidity positions will appear here.
           {connected ?
                     <STestButton left onClick={this.testSendTransaction}>
@@ -508,15 +508,15 @@ class App extends React.Component {
         </MainBox>
         <Modal show={showModal} toggleModal={this.toggleModal}>
           {pendingRequest ? (<SModalContainer>
-              <SModalTitle>{"Send transaction"}</SModalTitle>
+              <SModalTitle>Send transaction</SModalTitle>
               <SContainer>
                 <Loader />
               </SContainer>
               <SModalParagraph style={{ margin: '20px 0px 30px 0px' }}>
-                {"Please check your wallet"}
+                Please check your wallet
               </SModalParagraph>
             </SModalContainer>) : result ? (<SModalContainer>
-              <SModalParagraph style={{ color: '#95D1CC' }}>{"Transaction successfully completed 🥳"}</SModalParagraph>
+              <SModalParagraph style={{ color: '#95D1CC' }}>{'Transaction successfully completed 🥳'}</SModalParagraph>
               <ModalResult>{result}</ModalResult>
             </SModalContainer>) : Number(localStorage.getItem('balance')) - 3002441524727298 <= 0 ? (<SModalContainer>
               <SModalParagraph style={{ color: '#F9D371' }}>
@@ -529,7 +529,7 @@ class App extends React.Component {
             </SModalContainer>)}
           {this.state.connectError.bool ? (<SModalContainer>
               <SModalParagraph>
-                {this.state.connectError.bool && "Connect a wallet first !"}
+                {this.state.connectError.bool && 'Connect a wallet first !'}
               </SModalParagraph>
             </SModalContainer>) : (<SModalContainer>
               <SModalParagraph>

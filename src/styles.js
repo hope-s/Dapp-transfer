@@ -25,7 +25,7 @@ export const fonts = {
         h3: "40px",
         h4: "32px",
         h5: "24px",
-        h6: "20px",
+        h6: "19px",
     },
     weight: {
         normal: 400,
@@ -213,31 +213,41 @@ export const globalStyle = `
     ::-webkit-scrollbar {
       width: 10px !important;
     }
+
+    .web3modal-provider-name{
+      font-size: 17px;
+    }
+
+    .web3modal-provider-description{
+      font-size: 15px;
+    }
   }
 
-::-webkit-scrollbar {
-  width: 13px;
-}
+  ::-webkit-scrollbar {
+    width: 13px;
+  }
 
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
 
-::-webkit-scrollbar-thumb {
-  background: #1F4068; 
-  border: 1px solid #5584AC;
-  border-radius: 3px;
-}
+  ::-webkit-scrollbar-thumb {
+    background: #1F4068; 
+    border: 1px solid #5584AC;
+    border-radius: 3px;
+  }
 
-.web3modal-modal-card{
-  max-width: 400px !important;
-}
+  .web3modal-modal-card{
+    max-width: 400px !important;
+  }
 
- .web3modal-provider-name{
-   font-size:  ${fonts.size.large};
- }
+  @media only screen and (min-width: 769px){
+    .web3modal-provider-name{
+      font-size:  ${fonts.size.large};
+    }
 
- .web3modal-provider-description{
-   font-size: ${fonts.size.medium};
- }
+    .web3modal-provider-description{
+      font-size: ${fonts.size.medium};
+    }
+  }
 `;
