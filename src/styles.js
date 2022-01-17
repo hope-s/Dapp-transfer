@@ -25,7 +25,7 @@ export const fonts = {
         h3: "40px",
         h4: "32px",
         h5: "24px",
-        h6: "19px",
+        h6: "18px",
     },
     weight: {
         normal: 400,
@@ -213,14 +213,6 @@ export const globalStyle = `
     ::-webkit-scrollbar {
       width: 10px !important;
     }
-
-    .web3modal-provider-name{
-      font-size: 17px;
-    }
-
-    .web3modal-provider-description{
-      font-size: 15px;
-    }
   }
 
   ::-webkit-scrollbar {
@@ -241,13 +233,12 @@ export const globalStyle = `
     max-width: 400px !important;
   }
 
-  @media only screen and (min-width: 769px){
-    .web3modal-provider-name{
-      font-size:  ${fonts.size.large};
-    }
+  .web3modal-provider-name{
+    font-size:  ${fonts.size.large};
+    font-weight: ${fonts.weight.medium} !important;
+  }
 
-    .web3modal-provider-description{
-      font-size: ${fonts.size.medium};
-    }
+  .web3modal-provider-description{
+    font-size:  ${fonts.size.medium};
   }
 `;

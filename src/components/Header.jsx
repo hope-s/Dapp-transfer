@@ -60,7 +60,7 @@ const SBlockie = styled(Blockie) `
   margin-right: 10px;
   user-select: none;
 `;
-const SAddress = styled.p `
+const SAddress = styled.p`
   transition: ${transitions.base};
   font-weight: bold;
   user-select: none;

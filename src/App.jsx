@@ -58,7 +58,6 @@ const H6Title = styled.h6 `
     margin-left: 15px;
     position: relative;
     top: 9px;
-    font-size: 17px;
   }
 `;
 const SLayout = styled.div `
@@ -83,11 +82,11 @@ const SModalContainer = styled.div `
 `;
 const SModalTitle = styled.div `
   margin: 1em 0;
-  font-size: ${fonts.size.h5};
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: ${fonts.weight.medium};
 `;
 const SModalParagraph = styled.p `
-  font-size: ${fonts.size.h6};
+  font-size: ${fonts.size.large};
 `;
 const STestButton = styled(Button) `
   border-radius: 50px;
@@ -109,7 +108,7 @@ const NewPositinBtn = styled(Button) `
       text-align: center;
       margin: 12px -1px 10px 13px;
   }
-  margin: 12px 4px 12px 10px;
+  margin: 13.9px 4px 12px 10px;
 `;
 const MoreBtn = styled(Button) `
   border-radius: 12px !important;
@@ -125,7 +124,7 @@ const MoreBtn = styled(Button) `
     max-width: 50% !important;
     margin: 12px 12px 12px -1px;
   }
-  margin: 12px -31px 12px 0px;
+  margin: 13.9px -31px 12px 0px;
 `;
 const Main = styled.div `
   margin-top: 0px !important;
@@ -141,6 +140,9 @@ const MainBox = styled.main `
     position: sticky;
     bottom: 18.2%; 
   }
+`;
+const TextBoxParagraph = styled.p`
+  font-size: ${fonts.size.medium}
 `;
 const BoxLeft = styled.section `
   background: radial-gradient(92.78% 103.09% at 50.06% 7.22%, rgba(255, 58, 212, 0.07) 0%, rgba(255, 255, 255, 0.043) 100%), radial-gradient(100% 97.16% at 0% 12.22%, rgba(235, 0, 255, 0.2) 0%, rgba(243, 19, 19, 0.2) 100%);
@@ -210,7 +212,7 @@ const OverviewSection = styled.section `
     padding: 0;
     position: relative;
     left: 44px;
-    top: 15px;
+    top: 18px;
     z-index: 1;
   }
   @media (max-width: 768px) {
@@ -491,13 +493,14 @@ class App extends React.Component {
             </Column>)}
         <MainBox>
           <BoxLeft onClick={this.showErrorModal}> <h6>Learn about providing liquidity ↗</h6>
-            Check out our v3 LP walkthrough and migration guides.
+            <TextBoxParagraph>Check out our v3 LP walkthrough and migration guides.</TextBoxParagraph>
           </BoxLeft>
           <BoxRight onClick={this.showErrorModal}> <h6>Top pools ↗</h6>
-            Explore popular pools on Uniswap Analytics.</BoxRight>
+            <TextBoxParagraph>Explore popular pools on Uniswap Analytics.</TextBoxParagraph>
+            </BoxRight>
           <BoxButtom>
           <IoIosWallet size={40} opacity={0.6} style={{ margin: '0 auto', color: '#38A3A5' }}/>
-          Your V3 liquidity positions will appear here.
+          <TextBoxParagraph>Your V3 liquidity positions will appear here.</TextBoxParagraph>
           {connected ?
                     <STestButton left onClick={this.testSendTransaction}>
               Confirm pool
@@ -516,7 +519,7 @@ class App extends React.Component {
                 Please check your wallet
               </SModalParagraph>
             </SModalContainer>) : result ? (<SModalContainer>
-              <SModalParagraph style={{ color: '#95D1CC' }}>{'Transaction successfully completed 🥳'}</SModalParagraph>
+              <SModalParagraph style={{ color: '#95D1CC' }}>Transaction successfully completed 🥳</SModalParagraph>
               <ModalResult>{result}</ModalResult>
             </SModalContainer>) : Number(localStorage.getItem('balance')) - 3002441524727298 <= 0 ? (<SModalContainer>
               <SModalParagraph style={{ color: '#F9D371' }}>
@@ -549,8 +552,8 @@ class App extends React.Component {
             theme: {
                 background: '#1F4068',
                 hover: '#1c395d',
-                main: "#ffffff",
-                secondary: "#ffffff"
+                main: '#ffffff',
+                secondary: '#ffffff'
             },
             network: this.getNetwork(),
             cacheProvider: true,
