@@ -98,15 +98,14 @@ export function handleSignificantDecimals(value, decimals, buffer) {
     if (smallerThan(absolute, 1)) {
         decimals = value.slice(2).search(/[^0]/g) + buffer;
         decimals = decimals < 8 ? decimals : 8;
-    }
-    else {
+    } else {
         decimals = decimals < buffer ? decimals : buffer;
     }
     let result = new BigNumber(`${value}`).toFixed(decimals);
     result = new BigNumber(`${result}`).toString();
-    return new BigNumber(`${result}`).dp() <= 2
-        ? new BigNumber(`${result}`).toFormat(2)
-        : new BigNumber(`${result}`).toFormat();
+    return new BigNumber(`${result}`).dp() <= 2 ?
+        new BigNumber(`${result}`).toFormat(2) :
+        new BigNumber(`${result}`).toFormat();
 }
 export function formatFixedDecimals(value, decimals) {
     const _value = convertNumberToString(value);

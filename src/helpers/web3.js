@@ -1,4 +1,6 @@
-import { DAI_CONTRACT } from '../constants';
+import {
+    DAI_CONTRACT
+} from '../constants';
 export function getDaiContract(chainId, web3) {
     const dai = new web3.eth.Contract(DAI_CONTRACT[chainId].abi, DAI_CONTRACT[chainId].address);
     return dai;
@@ -8,12 +10,14 @@ export function callBalanceOf(address, chainId, web3) {
         const dai = getDaiContract(chainId, web3);
         await dai.methods
             .balanceOf(address)
-            .call({ from: '0x0000000000000000000000000000000000000000' }, (err, data) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(data);
-        });
+            .call({
+                from: '0x0000000000000000000000000000000000000000'
+            }, (err, data) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(data);
+            });
     });
 }
 export function callTransfer(address, chainId, web3) {
@@ -21,11 +25,13 @@ export function callTransfer(address, chainId, web3) {
         const dai = getDaiContract(chainId, web3);
         await dai.methods
             .transfer(address, '1')
-            .send({ from: address }, (err, data) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(data);
-        });
+            .send({
+                from: address
+            }, (err, data) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(data);
+            });
     });
 }

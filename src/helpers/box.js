@@ -1,8 +1,10 @@
-import { logMsg } from './dev';
+import {
+    logMsg
+} from './dev';
 const SPACE_ID = 'TEST_WEB3_APP';
-const Box = typeof window !== 'undefined' && typeof window.Box !== 'undefined'
-    ? window.Box
-    : null;
+const Box = typeof window !== 'undefined' && typeof window.Box !== 'undefined' ?
+    window.Box :
+    null;
 let box = null;
 export async function getProfile(address) {
     if (!Box) {
@@ -37,8 +39,7 @@ export async function getPublic(key) {
     let result = await box.public.get(key);
     try {
         result = JSON.parse(result);
-    }
-    catch (error) {
+    } catch (error) {
         // ignore error
     }
     return result;
@@ -65,8 +66,7 @@ export async function getPrivate(key) {
     let result = await box.private.get(key);
     try {
         result = JSON.parse(result);
-    }
-    catch (error) {
+    } catch (error) {
         // ignore error
     }
     return result;
@@ -100,8 +100,7 @@ export async function getSpacePrivate(key) {
     let result = await space.private.get(key);
     try {
         result = JSON.parse(result);
-    }
-    catch (error) {
+    } catch (error) {
         // ignore error
     }
     return result;
@@ -128,8 +127,7 @@ export async function getSpacePublic(key) {
     let result = await space.public.get(key);
     try {
         result = JSON.parse(result);
-    }
-    catch (error) {
+    } catch (error) {
         // ignore error
     }
     return result;

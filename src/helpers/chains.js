@@ -1,5 +1,4 @@
-const supportedChains = [
-    {
+const supportedChains = [{
         name: "Ethereum Mainnet",
         short_name: "eth",
         chain: "ETH",
