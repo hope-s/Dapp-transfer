@@ -7,7 +7,7 @@ const SIcon = styled.img`
 	margin-right: 5px;
 	margin-top: 3px;
 	@media (max-width: 768px) {
-		margin-left: -3px;
+		margin-left: -1px;
 		margin-top: 0px;
 	}
 `;

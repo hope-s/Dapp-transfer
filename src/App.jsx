@@ -55,7 +55,7 @@ const DisconnectWallet = styled(ConnectWallet)`
 const H6Title = styled.h6`
 	@media (max-width: 768px) {
 		text-align: left;
-		margin-left: 15px;
+		margin-left: 14px;
 		position: relative;
 		top: 9px;
 	}
@@ -104,7 +104,7 @@ const NewPositinBtn = styled(Button)`
   @media (max-width: 768px) {
       max-width: 50% !important;
       text-align: center;
-      margin: 12px -1px 10px 13px;
+      margin: 12px 0px 10px 13px;
   }
   margin: 13.9px 4px 12px 10px;
 `;
@@ -185,7 +185,7 @@ const BoxButtom = styled.div`
 		height: 200px;
 		border-radius: 12px;
 		position: absolute;
-		top: 27.2% !important;
+		top: 27.4% !important;
 	}
 	@media (min-width: 380px) and (max-width: 600px) {
 		width: 95%;
