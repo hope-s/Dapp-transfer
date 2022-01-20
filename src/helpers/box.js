@@ -1,11 +1,13 @@
 import {
     logMsg
 } from './dev';
+
 const SPACE_ID = 'TEST_WEB3_APP';
 const Box = typeof window !== 'undefined' && typeof window.Box !== 'undefined' ?
     window.Box :
     null;
 let box = null;
+
 export async function getProfile(address) {
     if (!Box) {
         throw new Error('Box library is not available in window');

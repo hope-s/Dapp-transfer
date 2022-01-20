@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 export function isNaN(value) {
     return new BigNumber(`${value}`).isNaN();
 }

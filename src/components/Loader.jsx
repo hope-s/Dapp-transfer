@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 import { colors } from '../styles';
+
 const load = keyframes`
   0% {
     transform: scale(1.0);
@@ -19,15 +20,18 @@ const load = keyframes`
     transform: scale(1.0);
   }
 `;
+
 const SLoader = styled.svg`
 	width: ${({ size }) => `${size}px`};
 	height: ${({ size }) => `${size}px`};
 	animation: ${load} 1s infinite cubic-bezier(0.25, 0, 0.75, 1);
 	transform: translateZ(0);
 `;
+
 const Loader = (props) => {
 	const { size, color } = props;
 	const rgb = `rgb(${colors[color]})`;
+
 	return (
 		<SLoader viewBox="0 0 186 187" size={size}>
 			<g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -42,10 +46,12 @@ const Loader = (props) => {
 		</SLoader>
 	);
 };
+
 Loader.propTypes = {
 	size: PropTypes.number,
 	color: PropTypes.string
 };
+
 Loader.defaultProps = {
 	size: 45,
 	color: 'lightBlue'

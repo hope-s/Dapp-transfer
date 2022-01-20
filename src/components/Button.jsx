@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Loader from './Loader';
 import { colors, fonts, shadows, transitions } from '../styles';
+
 const SIcon = styled.div`
 	position: absolute;
 	height: 15px;
@@ -9,6 +10,7 @@ const SIcon = styled.div`
 	margin: 0 8px;
 	top: calc((100% - 15px) / 2);
 `;
+
 export const SHoverLayer = styled.div`
 	transition: ${transitions.button};
 	position: absolute;
@@ -23,6 +25,7 @@ export const SHoverLayer = styled.div`
 	opacity: 0;
 	visibility: hidden;
 `;
+
 const SButton = styled.button`
 	transition: ${transitions.button};
 	position: relative;
@@ -79,6 +82,7 @@ const SButton = styled.button`
 		transition: 0.15s ease;
 	}
 `;
+
 const Button = (props) => (
 	<SButton
 		{...props}
@@ -94,6 +98,7 @@ const Button = (props) => (
 		{props.fetching ? <Loader size={20} color="white" /> : props.children}
 	</SButton>
 );
+
 Button.defaultProps = {
 	fetching: false,
 	outline: false,

@@ -1,10 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components';
+
+import { handleSignificantDecimals, convertAmountFromRawNumber } from '../helpers/bignumber';
+
 import Icon from './Icon';
 import ERC20Icon from './ERC20Icon';
 import eth from '../assets/eth.png';
 import xdai from '../assets/xdai.png';
-import { handleSignificantDecimals, convertAmountFromRawNumber } from '../helpers/bignumber';
+
 const SAssetRow = styled.div`
 	width: 100%;
 	padding: 20px 0px;
@@ -13,6 +16,7 @@ const SAssetRow = styled.div`
 	}
 	display: table-cell;
 `;
+
 const SAssetRowRight = styled.div`
 	display: flex;
 	flex-wrap: no-wrap;
@@ -22,6 +26,7 @@ const SAssetRowRight = styled.div`
 		margin: 11px 13px;
 	}
 `;
+
 const SAssetBalance = styled.div`
 	display: flex;
 	margin: 3px 0px 3px 2px !important;
@@ -30,6 +35,7 @@ const SAssetBalance = styled.div`
 		white-space: pre;
 	}
 `;
+
 const ZeroBalance = styled.span`
 	width: 72px;
 	margin: 3px 0px;
@@ -38,14 +44,17 @@ const ZeroBalance = styled.span`
 		margin: 3px 7px 3px 0px;
 	}
 `;
+
 const AssetRow = (props) => {
 	const { asset, connected } = props;
 	const nativeCurrencyIcon =
 		asset.symbol && asset.symbol.toLowerCase() === 'eth'
 			? eth
 			: asset.symbol && asset.symbol.toLowerCase() === 'xdai' ? xdai : null;
+
 	const balance = handleSignificantDecimals(convertAmountFromRawNumber(Number(asset.balance)), 8);
 	const ethPrice = Number(localStorage.getItem('price'));
+
 	return (
 		<SAssetRow {...props}>
 			<SAssetRowRight>

@@ -5,6 +5,7 @@ import Blockie from './Blockie';
 import { ellipseAddress, getChainData } from '../helpers/utilities';
 import { transitions } from '../styles';
 import Button, { SHoverLayer } from '../components/Button';
+
 const SHeader = styled.div`
 	margin-top: -1px;
 	margin-bottom: 1px;
@@ -20,6 +21,7 @@ const SHeader = styled.div`
 		top: 61.4%;
 	}
 `;
+
 const WalletConnnectButton = styled(Button)`
   @media (max-width: 768px) {
     display: none;
@@ -37,6 +39,7 @@ const WalletConnnectButton = styled(Button)`
     border-radius: 14px !important;
   }
 `;
+
 const SActiveAccount = styled.div`
 	display: flex;
 	align-items: center;
@@ -56,10 +59,12 @@ const SActiveChain = styled(SActiveAccount)`
     font-weight: bold;
   }
 `;
+
 const SBlockie = styled(Blockie)`
   margin-right: 10px;
   user-select: none;
 `;
+
 const SAddress = styled.p`
 	transition: ${transitions.base};
 	font-weight: bold;
@@ -67,9 +72,11 @@ const SAddress = styled.p`
 	font-family: monospace;
 	margin: ${({ connected }) => (connected ? '-3px 6px 5px -2px' : '0')};
 `;
+
 const Header = (props) => {
 	const { connected, address, chainId, killSession, connectWallet } = props;
 	const chainData = chainId ? getChainData(chainId) : null;
+
 	return (
 		<SHeader {...props}>
 			{connected &&
@@ -96,6 +103,7 @@ const Header = (props) => {
 		</SHeader>
 	);
 };
+
 Header.propTypes = {
 	killSession: PropTypes.func.isRequired,
 	connectWallet: PropTypes.func.isRequired,

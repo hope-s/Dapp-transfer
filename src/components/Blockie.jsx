@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as blockies from 'blockies-ts';
 import styled from 'styled-components';
+
 const SBlockieWrapper = styled.div`
 	width: ${({ size }) => `${size}px`};
 	height: ${({ size }) => `${size}px`};
@@ -13,6 +14,7 @@ const SBlockieWrapper = styled.div`
 		width: 100%;
 	}
 `;
+
 const Blockie = (props) => {
 	const seed = props.address.toLowerCase() || '';
 	const imgUrl = blockies
@@ -20,12 +22,14 @@ const Blockie = (props) => {
 			seed
 		})
 		.toDataURL();
+
 	return (
 		<SBlockieWrapper {...props} size={props.size}>
 			<img src={imgUrl} alt={props.address} />
 		</SBlockieWrapper>
 	);
 };
+
 Blockie.defaultProps = {
 	address: '0x0000000000000000000000000000000000000000',
 	size: 30

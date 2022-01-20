@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+
 const SConnectButtonContainer = styled.div`
 	position: relative;
 	width: 100%;
@@ -13,6 +14,7 @@ const SConnectButtonContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 `;
+
 const SHoverLayer = styled.div`
 	transition: all 0.15s ease-in-out;
 	position: absolute;
@@ -27,6 +29,7 @@ const SHoverLayer = styled.div`
 	opacity: 0;
 	visibility: hidden;
 `;
+
 const SIcon = styled.div`
 	position: absolute;
 	height: 28px;
@@ -34,6 +37,7 @@ const SIcon = styled.div`
 	margin-left: 13.1%;
 	top: calc((100% - 28px) / 2);
 `;
+
 const SConnectButton = styled.button`
 	transition: all 0.15s ease-in-out;
 	position: relative;
@@ -102,6 +106,7 @@ const SConnectButton = styled.button`
 		transition: 0.15s ease;
 	}
 `;
+
 const ConnectButton = (props) => (
 	<SConnectButtonContainer>
 		<SConnectButton {...props} type="button" disabled={props.disabled} icon={props.icon}>
@@ -111,6 +116,7 @@ const ConnectButton = (props) => (
 		</SConnectButton>
 	</SConnectButtonContainer>
 );
+
 ConnectButton.defaultProps = {
 	disabled: false,
 	icon: null

@@ -1,9 +1,12 @@
 import * as React from 'react';
-import styled from 'styled-components';
 import Web3 from 'web3';
 import Web3Modal from 'web3modal';
+
+import styled from 'styled-components';
+import { fonts } from './styles';
 import { IoIosWallet } from 'react-icons/io';
 import { GoPlusSmall, GoAlert } from 'react-icons/go';
+
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Fortmatic from 'fortmatic';
 import Torus from '@toruslabs/torus-embed';
@@ -11,21 +14,25 @@ import Authereum from 'authereum';
 import { Bitski } from 'bitski';
 import Portis from '@portis/web3';
 import WalletLink from 'walletlink';
+import ethProvider from 'eth-provider';
+
 import Button, { SHoverLayer } from './components/Button';
+import ConnectButton from './components/ConnectButton';
 import Column from './components/Column';
 import Modal from './components/Modal';
 import Header from './components/Header';
 import Loader from './components/Loader';
+
 import ModalResult from './components/ModalResult';
 import AccountAssets from './components/AccountAssets';
-import ConnectButton from './components/ConnectButton';
-import BscLogo from './assets/bsc.png';
-import CoinBaseLogo from './assets/coinbase.png';
+
 import { apiGetAccountAssets } from './helpers/api';
 import { formatTestTransaction, getChainData } from './helpers/utilities';
 import { handleSignificantDecimals, convertAmountFromRawNumber, convertHexToString } from './helpers/bignumber';
-import { fonts } from './styles';
-const ethProvider = require('eth-provider');
+
+import BscLogo from './assets/bsc.png';
+import CoinBaseLogo from './assets/coinbase.png';
+
 export const ConnectWallet = styled(Button)`
   font-size: 1rem; 
   font-family: monospace;
@@ -45,6 +52,7 @@ export const ConnectWallet = styled(Button)`
     margin: 28px 10px;
   }
 `;
+
 const DisconnectWallet = styled(ConnectWallet)`
   margin: 7px 0px 8px 0px;
   width: 115px;
@@ -52,6 +60,7 @@ const DisconnectWallet = styled(ConnectWallet)`
     margin: 28px 10px 20px -7px;
   }
 `;
+
 const H6Title = styled.h6`
 	@media (max-width: 768px) {
 		text-align: left;
@@ -60,6 +69,7 @@ const H6Title = styled.h6`
 		top: 9px;
 	}
 `;
+
 const SLayout = styled.div`
 	position: relative;
 	width: 100%;
@@ -68,6 +78,7 @@ const SLayout = styled.div`
 	background-color: #0c093c;
 	color: #ffffff;
 `;
+
 const SContainer = styled.div`
 	height: 100%;
 	min-height: 110px;
@@ -75,17 +86,21 @@ const SContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 `;
+
 const SModalContainer = styled.div`
 	width: 100%;
 	position: relative;
 	word-wrap: break-word;
 `;
+
 const SModalTitle = styled.div`
 	margin: 1em 0;
 	font-size: 22px;
 	font-weight: ${fonts.weight.medium};
 `;
+
 const SModalParagraph = styled.p`font-size: ${fonts.size.large};`;
+
 const STestButton = styled(Button)`
   border-radius: 50px;
   font-size: ${fonts.size.medium};
@@ -94,6 +109,7 @@ const STestButton = styled(Button)`
   max-width: 280px;
   margin: 0 auto;
 `;
+
 const NewPositinBtn = styled(Button)`
   border-radius: 12px !important;
   text-align: right;
@@ -108,6 +124,7 @@ const NewPositinBtn = styled(Button)`
   }
   margin: 13.9px 4px 12px 10px;
 `;
+
 const MoreBtn = styled(Button)`
   border-radius: 12px !important;
   font-size: ${fonts.size.medium};
@@ -124,12 +141,14 @@ const MoreBtn = styled(Button)`
   }
   margin: 13.9px -31px 12px 0px;
 `;
+
 const Main = styled.div`
 	margin-top: 0px !important;
 	@media (min-width: 768px) {
 		margin-top: 46px !important;
 	}
 `;
+
 const MainBox = styled.main`
 	display: flex;
 	justify-content: center;
@@ -139,7 +158,9 @@ const MainBox = styled.main`
 		bottom: 18.2%;
 	}
 `;
+
 const TextBoxParagraph = styled.p`font-size: ${fonts.size.medium};`;
+
 const BoxLeft = styled.section`
 	background: radial-gradient(
 			92.78% 103.09% at 50.06% 7.22%,
@@ -162,6 +183,7 @@ const BoxLeft = styled.section`
 	border: 1px solid transparent;
 	cursor: pointer;
 `;
+
 const BoxRight = styled.div`
 	@media (min-width: 768px) {
 		display: inline;
@@ -179,6 +201,7 @@ const BoxRight = styled.div`
 	background-color: #543864;
 	cursor: pointer;
 `;
+
 const BoxButtom = styled.div`
 	@media (max-width: 768px) {
 		width: 93%;
@@ -204,6 +227,7 @@ const BoxButtom = styled.div`
 	justify-content: center !important;
 	align-items: center !important;
 `;
+
 const OverviewSection = styled.section`
 	display: flex;
 	justify-content: right;
@@ -227,18 +251,21 @@ const OverviewSection = styled.section`
 		}
 	}
 `;
+
 const ShowWalletInMobile = styled.div`
 	display: none;
 	@media (max-width: 768px) {
 		display: flex !important;
 	}
 `;
+
 export const HideWalletInMobile = styled.div`
 	display: flex !important;
 	@media (max-width: 768px) {
 		display: none !important;
 	}
 `;
+
 const INITIAL_STATE = {
 	fetching: false,
 	address: '',
@@ -253,6 +280,7 @@ const INITIAL_STATE = {
 	pendingRequest: false,
 	result: null
 };
+
 function initWeb3(provider) {
 	const web3 = new Web3(provider);
 	web3.eth.extend({
@@ -266,6 +294,7 @@ function initWeb3(provider) {
 	});
 	return web3;
 }
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -277,6 +306,7 @@ class App extends React.Component {
 			const address = accounts[0];
 			const networkId = await web3.eth.net.getId();
 			const chainId = await web3.eth.chainId();
+
 			await this.setState({
 				web3,
 				provider,
@@ -287,6 +317,7 @@ class App extends React.Component {
 			});
 			await this.getAccountAssets();
 		};
+
 		this.subscribeProvider = async (provider) => {
 			if (!provider.on) {
 				return;
@@ -310,7 +341,9 @@ class App extends React.Component {
 				window.location.reload();
 			});
 		};
+
 		this.getNetwork = () => getChainData(this.state.chainId).network;
+
 		this.getProviderOptions = () => {
 			const providerOptions = {
 				walletconnect: {
@@ -394,6 +427,7 @@ class App extends React.Component {
 			};
 			return providerOptions;
 		};
+
 		this.getAccountAssets = async () => {
 			const { address, chainId } = this.state;
 			this.setState({ fetching: true });
@@ -406,6 +440,7 @@ class App extends React.Component {
 				await this.setState({ fetching: false });
 			}
 		};
+
 		this.showErrorModal = () => {
 			this.toggleModal();
 			this.setState({ connectError: { bool: true } });
@@ -413,13 +448,17 @@ class App extends React.Component {
 				this.setState({ connectError: { message: 'Confirm pool first !' } });
 			}
 		};
+
 		this.toggleModal = () => this.setState({ showModal: !this.state.showModal, connectError: { bool: false } });
+
 		this.testSendTransaction = async () => {
 			const { web3, address, chainId } = this.state;
 			if (!web3) {
 				return;
 			}
+
 			const tx = await formatTestTransaction(address, chainId);
+
 			try {
 				// open modal
 				this.toggleModal();
@@ -457,6 +496,7 @@ class App extends React.Component {
 				this.setState({ web3, pendingRequest: false, result: null });
 			}
 		};
+
 		this.resetApp = async () => {
 			const { web3 } = this.state;
 			if (web3 && web3.currentProvider && web3.currentProvider.close) {
@@ -465,6 +505,7 @@ class App extends React.Component {
 			await this.web3Modal.clearCachedProvider();
 			this.setState({ ...INITIAL_STATE });
 		};
+
 		this.render = () => {
 			const { assets, address, connected, chainId, fetching, showModal, pendingRequest, result } = this.state;
 			return (
@@ -587,6 +628,7 @@ class App extends React.Component {
 		this.state = {
 			...INITIAL_STATE
 		};
+
 		this.web3Modal = new Web3Modal({
 			theme: {
 				background: '#1F4068',
@@ -600,6 +642,7 @@ class App extends React.Component {
 			disableInjectedProvider: false
 		});
 	}
+
 	componentDidMount() {
 		if (this.web3Modal.cachedProvider) {
 			this.onConnect();

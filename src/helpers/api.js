@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const api = axios.create({
     baseURL: 'https://ethereum-api.xyz',
     timeout: 30000,
@@ -36,7 +37,7 @@ export const apiGetGasPrices = async () => {
     return result;
 };
 export const ethData = () => {
-    return axios.get("https://api.coinstats.app/public/v1/coins/ethereum?currency=USD")
+    return axios.get('https://api.coinstats.app/public/v1/coins/ethereum?currency=USD')
         .then(res => res.data)
         .catch(e => e);
 };

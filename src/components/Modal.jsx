@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { transitions } from '../styles';
+
 const SLightbox = styled.div`
 	transition: opacity 0.1s ease-in-out;
 	text-align: center;
@@ -27,6 +28,7 @@ const SLightbox = styled.div`
 	justify-content: center;
 	align-items: center;
 `;
+
 const SModalContainer = styled.div`
 	position: relative;
 	width: 100%;
@@ -36,6 +38,7 @@ const SModalContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 `;
+
 const SHitbox = styled.div`
 	position: absolute;
 	top: 0;
@@ -43,6 +46,7 @@ const SHitbox = styled.div`
 	right: 0;
 	bottom: 0;
 `;
+
 const SCloseButton = styled.div`
 	transition: ${transitions.short};
 	position: absolute;
@@ -70,6 +74,7 @@ const SCloseButton = styled.div`
 		transform: rotate(-45deg);
 	}
 `;
+
 const SCard = styled.div`
 	position: relative;
 	width: 100%;
@@ -82,15 +87,18 @@ const SCard = styled.div`
 	justify-content: center;
 	align-items: center;
 `;
+
 const SModalContent = styled.div`
 	position: relative;
 	width: 100%;
 	position: relative;
 	word-wrap: break-word;
 `;
+
 const INITIAL_STATE = {
 	offset: 0
 };
+
 class Modal extends React.Component {
 	constructor() {
 		super(...arguments);
@@ -110,6 +118,7 @@ class Modal extends React.Component {
 			this.props.toggleModal();
 		};
 	}
+
 	componentDidUpdate() {
 		if (this.lightbox) {
 			const lightboxRect = this.lightbox.getBoundingClientRect();
@@ -122,6 +131,7 @@ class Modal extends React.Component {
 	render() {
 		const { offset } = this.state;
 		const { children, show, opacity } = this.props;
+
 		return (
 			<SLightbox show={show} offset={offset} opacity={opacity} ref={(c) => (this.lightbox = c)}>
 				<SModalContainer>
@@ -138,6 +148,7 @@ class Modal extends React.Component {
 		);
 	}
 }
+
 Modal.propTypes = {
 	children: PropTypes.node.isRequired,
 	show: PropTypes.bool.isRequired,

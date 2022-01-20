@@ -1,6 +1,7 @@
 import {
     DAI_CONTRACT
 } from '../constants';
+
 export function getDaiContract(chainId, web3) {
     const dai = new web3.eth.Contract(DAI_CONTRACT[chainId].abi, DAI_CONTRACT[chainId].address);
     return dai;

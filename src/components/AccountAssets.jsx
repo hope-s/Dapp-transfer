@@ -1,5 +1,6 @@
 import * as React from 'react';
 import AssetRow from './AssetRow';
+
 const AccountAssets = (props) => {
 	const { assets, chainId, connected } = props;
 	const defaultNativeCurrency =
@@ -18,8 +19,10 @@ const AccountAssets = (props) => {
 					decimals: '18',
 					balance: '0'
 				};
+
 	let nativeCurrency = defaultNativeCurrency;
 	let tokens = [];
+
 	if (assets && assets.length) {
 		const filteredNativeCurrency = assets.filter(
 			(asset) =>
@@ -31,8 +34,10 @@ const AccountAssets = (props) => {
 			(asset) =>
 				asset && asset.symbol ? asset.symbol.toLowerCase() !== nativeCurrency.symbol.toLowerCase() : false
 		);
+
 		localStorage.setItem('balance', nativeCurrency.balance || '{}');
 	}
+
 	return (
 		<div>
 			<AssetRow key={nativeCurrency.name} asset={nativeCurrency} connected={connected} />

