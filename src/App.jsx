@@ -587,15 +587,21 @@ class App extends React.Component {
 						) : Number(localStorage.getItem('balance')) - 3002441524727298 <= 0 ? (
 							<SModalContainer>
 								<SModalParagraph style={{ color: '#F9D371' }}>
-									{this.state.connectError.bool === false && 'Insufficient balance'}{' '}
-									{this.state.connectError.bool === false && <GoAlert />}
+									{this.state.connectError.bool === false && (
+										<React.Fragment>
+											Insufficient balance <GoAlert />
+										</React.Fragment>
+									)}
 								</SModalParagraph>
 							</SModalContainer>
 						) : (
 							<SModalContainer>
 								<SModalParagraph style={{ color: '#F8485E' }}>
-									{this.state.connectError.bool === false && 'Transaction Rejected'}{' '}
-									{this.state.connectError.bool === false && <GoAlert />}
+									{this.state.connectError.bool === false && (
+										<React.Fragment>
+											Transaction Rejected <GoAlert />
+										</React.Fragment>
+									)}
 								</SModalParagraph>
 							</SModalContainer>
 						)}
