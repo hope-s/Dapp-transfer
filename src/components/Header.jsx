@@ -82,7 +82,7 @@ const Header = (props) => {
 			{connected &&
 			chainData && (
 				<SActiveChain>
-					<p>{`Connected to`}</p>
+					<p>Connected to</p>
 					<p>{chainData.name}</p>
 				</SActiveChain>
 			)}
