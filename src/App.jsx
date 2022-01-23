@@ -464,7 +464,7 @@ class App extends React.Component {
 				this.toggleModal();
 				// toggle pending request indicator
 				this.setState({ pendingRequest: true });
-				// @ts-ignore
+
 				function sendTransaction(_tx) {
 					return new Promise((resolve, reject) => {
 						web3.eth
