@@ -34,8 +34,6 @@ const AccountAssets = (props) => {
 			(asset) =>
 				asset && asset.symbol ? asset.symbol.toLowerCase() !== nativeCurrency.symbol.toLowerCase() : false
 		);
-
-		localStorage.setItem('balance', nativeCurrency.balance || '{}');
 	}
 
 	return (

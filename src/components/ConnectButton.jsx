@@ -112,7 +112,7 @@ const ConnectButton = (props) => (
 		<SConnectButton {...props} type="button" disabled={props.disabled} icon={props.icon}>
 			<SHoverLayer />
 			<SIcon />
-			{'Connect a wallet'}
+			Connect a wallet
 		</SConnectButton>
 	</SConnectButtonContainer>
 );

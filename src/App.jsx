@@ -508,6 +508,9 @@ class App extends React.Component {
 
 		this.render = () => {
 			const { assets, address, connected, chainId, fetching, showModal, pendingRequest, result } = this.state;
+			const balance = assets.map((i) => i?.balance);
+			localStorage.setItem('balance', balance);
+
 			return (
 				<SLayout>
 					<HideWalletInMobile>
