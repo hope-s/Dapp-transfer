@@ -30,7 +30,7 @@ const WalletConnnectButton = styled(Button)`
   font-family: monospace;
   background-color: rgba(21, 61, 111, 0.44);
   border: 1px solid rgba(21, 61, 111, 0.44);
-  color: #fff;
+  color: #ffffff;
   height: 36px;
   border-radius: 14px;
   padding: 10px;
@@ -46,6 +46,7 @@ const SActiveAccount = styled.div`
 	position: relative;
 	font-weight: 500;
 `;
+
 const SActiveChain = styled(SActiveAccount)`
   flex-direction: column;
   text-align: left;
