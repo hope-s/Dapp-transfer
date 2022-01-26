@@ -9,22 +9,22 @@ import eth from '../assets/eth.png';
 import xdai from '../assets/xdai.png';
 
 const SAssetRow = styled.div`
-	width: 100%;
-	padding: 20px 0px;
 	@media (max-width: 768px) {
 		padding: 0px;
 	}
+	width: 100%;
+	padding: 20px 0px;
 	display: table-cell;
 `;
 
 const SAssetRowRight = styled.div`
+	@media (max-width: 768px) {
+		margin: 11px 13px;
+	}
 	display: flex;
 	flex-wrap: no-wrap;
 	user-select: none;
 	margin: 8px 5px 0px 0px;
-	@media (max-width: 768px) {
-		margin: 11px 13px;
-	}
 `;
 
 const SAssetBalance = styled.div`

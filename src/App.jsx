@@ -111,21 +111,25 @@ const STestButton = styled(Button)`
 `;
 
 const NewPositinBtn = styled(Button)`
+  @media (max-width: 768px) {
+      max-width: 50% !important;
+      text-align: center;
+      margin: 12px 0px 10px 13px;
+  }
   border-radius: 12px !important;
   text-align: right;
   font-size: ${fonts.size.medium};
   height: 35px;
   width: 100%;
   max-width: 140px;
-  @media (max-width: 768px) {
-      max-width: 50% !important;
-      text-align: center;
-      margin: 12px 0px 10px 13px;
-  }
   margin: 13.9px 4px 12px 10px;
 `;
 
 const MoreBtn = styled(Button)`
+  @media (max-width: 768px) {
+    max-width: 50% !important;
+    margin: 12px 12px 12px -1px;
+  }
   border-radius: 12px !important;
   font-size: ${fonts.size.medium};
   height: 35px;
@@ -134,10 +138,6 @@ const MoreBtn = styled(Button)`
   width: 100%;
   &:hover ${SHoverLayer}{
     border-radius: 12px !important;
-  }
-  @media (max-width: 768px) {
-    max-width: 50% !important;
-    margin: 12px 12px 12px -1px;
   }
   margin: 13.9px -31px 12px 0px;
 `;
@@ -253,17 +253,17 @@ const OverviewSection = styled.section`
 `;
 
 const ShowWalletInMobile = styled.div`
-	display: none;
 	@media (max-width: 768px) {
 		display: flex !important;
 	}
+	display: none;
 `;
 
 export const HideWalletInMobile = styled.div`
-	display: flex !important;
 	@media (max-width: 768px) {
 		display: none !important;
 	}
+	display: flex !important;
 `;
 
 const INITIAL_STATE = {

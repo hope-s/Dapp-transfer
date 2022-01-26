@@ -7,6 +7,10 @@ import { transitions } from '../styles';
 import Button, { SHoverLayer } from '../components/Button';
 
 const SHeader = styled.div`
+	@media (max-width: 768px) {
+		position: absolute;
+		top: 61.4%;
+	}
 	margin-top: -1px;
 	margin-bottom: 1px;
 	width: 100%;
@@ -16,10 +20,6 @@ const SHeader = styled.div`
 	align-items: center;
 	justify-content: ${({ connected }) => (connected ? 'space-between' : 'end')};
 	padding: 0 10px;
-	@media (max-width: 768px) {
-		position: absolute;
-		top: 61.4%;
-	}
 `;
 
 const WalletConnnectButton = styled(Button)`
@@ -87,12 +87,7 @@ const Header = (props) => {
 					<p>{chainData.name}</p>
 				</SActiveChain>
 			)}
-			{!connected && (
-				<WalletConnnectButton connected={connected} onClick={connectWallet}>
-					Connect wallet
-				</WalletConnnectButton>
-			)}
-			{address && (
+			{connected ? (
 				<SActiveAccount>
 					<WalletConnnectButton connected={connected} onClick={killSession}>
 						Disconnect
@@ -100,6 +95,10 @@ const Header = (props) => {
 					<SBlockie address={address} />
 					<SAddress connected={connected}>{ellipseAddress(address)}</SAddress>
 				</SActiveAccount>
+			) : (
+				<WalletConnnectButton connected={connected} onClick={connectWallet}>
+					Connect wallet
+				</WalletConnnectButton>
 			)}
 		</SHeader>
 	);
@@ -108,6 +107,6 @@ const Header = (props) => {
 Header.propTypes = {
 	killSession: PropTypes.func.isRequired,
 	connectWallet: PropTypes.func.isRequired,
-	address: PropTypes.string
+	address: PropTypes.string, 
 };
 export default Header;
