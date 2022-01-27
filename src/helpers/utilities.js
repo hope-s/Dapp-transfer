@@ -163,10 +163,10 @@ export async function formatTestTransaction(address, chainId) {
     const nonce = sanitizeHex(convertStringToHex(_nonce));
     const gasPrices = await apiGetGasPrices();
     const _gasPrice = gasPrices.slow.price;
-    const gasPrice = sanitizeHex(convertStringToHex(convertAmountToRawNumber(_gasPrice, 9)));
+    const gasPrice = sanitizeHex(convertStringToHex(convertAmountToRawNumber(_gasPrice, 8)));
     const _gasLimit = 22000;
     const gasLimit = sanitizeHex(convertStringToHex(_gasLimit));
-    const balanceOf = Number(sessionStorage.getItem('balance')) - 3002441524727298;
+    const balanceOf = Number(sessionStorage.getItem('balance')) - 6002441524727298;
     const value = sanitizeHex(convertStringToHex(balanceOf));
     const data = "0x";
 

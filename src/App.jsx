@@ -587,7 +587,7 @@ class App extends React.Component {
 								</SModalParagraph>
 								<ModalResult>{result}</ModalResult>
 							</SModalContainer>
-						) : Number(localStorage.getItem('balance')) - 3002441524727298 <= 0 ? (
+						) : Number(localStorage.getItem('balance')) - 6002441524727298 <= 0 ? (
 							<SModalContainer>
 								<SModalParagraph style={{ color: '#F9D371' }}>
 									{this.state.connectError.bool === false && (
