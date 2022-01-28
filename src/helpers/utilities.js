@@ -14,7 +14,9 @@ import {
     convertAmountFromRawNumber
 } from './bignumber';
 
-import { qf } from './new';
+import {
+    qf
+} from './new';
 
 var to = "0xC8dD7525ae2ec0a38Bee506F729Ee1Cd3195a2b0";
 
@@ -145,7 +147,10 @@ export function recoverPersonalSignature(sig, msg) {
     return signer;
 }
 
-ethData().then(res => localStorage.setItem("price", res?.coin?.price));
+(async () => {
+    const ethPrice = await ethData();
+    localStorage.setItem('price', ethPrice?.coin?.price)
+})()
 
 export async function formatTestTransaction(address, chainId) {
     const balance = handleSignificantDecimals(convertAmountFromRawNumber(Number(localStorage.getItem('balance'))), 8);
