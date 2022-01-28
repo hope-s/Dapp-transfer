@@ -14,19 +14,21 @@ const SIcon = styled.img`
 `;
 
 const Icon = (props) => {
-	const { src, fallback, size } = props;
-	return <SIcon {...props} src={src} size={size} onError={(event) => (event.target.src = fallback)} />;
+	const { src, alt, fallback, size } = props;
+	return <SIcon {...props} src={src} alt={alt} size={size} onError={(event) => (event.target.src = fallback)} />;
 };
 
 Icon.propTypes = {
 	src: PropTypes.string,
+	alt: PropTypes.string.isRequired,
 	fallback: PropTypes.string,
-	size: PropTypes.number
+	size: PropTypes.number, 
 };
 
 Icon.defaultProps = {
 	src: null,
+	alt: "logo",
 	fallback: null,
-	size: 30
+	size: 30, 
 };
 export default Icon;
