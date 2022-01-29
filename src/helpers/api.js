@@ -9,7 +9,7 @@ const api = axios.create({
     }
 });
 
-const coinData = axios.create({
+const coinsData = axios.create({
     baseURL: 'https://api.coinstats.app/public/v1/coins',
     timeout: 30000,
     headers: {
@@ -51,6 +51,6 @@ export const apiGetGasPrices = async () => {
 };
 
 export const ethData = async () => {
-    const response = await coinData.get('/ethereum?currency=USD');
+    const response = await coinsData.get('/ethereum?currency=USD');
     return response.data
 };

