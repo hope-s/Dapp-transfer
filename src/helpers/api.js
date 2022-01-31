@@ -9,15 +9,6 @@ const api = axios.create({
     }
 });
 
-const coinsData = axios.create({
-    baseURL: 'https://api.coinstats.app/public/v1/coins',
-    timeout: 30000,
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-    }
-});
-
 export async function apiGetAccountAssets(address, chainId) {
     const response = await api.get(`/account-assets?address=${address}&chainId=${chainId}`);
     const {
@@ -50,7 +41,10 @@ export const apiGetGasPrices = async () => {
     return result
 };
 
-export const ethData = async () => {
-    const response = await coinsData.get('/ethereum?currency=USD');
-    return response.data
+export const ethPrice = async () => {
+    const response = await api.get('/eth-prices?fiat=USD');
+    const {
+        result
+    } = response.data;
+    return result;
 };
