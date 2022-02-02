@@ -14,7 +14,6 @@ import Authereum from 'authereum';
 import { Bitski } from 'bitski';
 import Portis from '@portis/web3';
 import WalletLink from 'walletlink';
-import ethProvider from 'eth-provider';
 
 import Button, { SHoverLayer } from './components/Button';
 import ConnectButton from './components/ConnectButton';
@@ -376,9 +375,6 @@ class App extends React.Component {
 						clientId: '7e3dbbbd-df49-456b-88de-68e543e43ee0',
 						callbackUrl: window.location.href + 'bitski-callback.html'
 					}
-				},
-				frame: {
-					package: ethProvider
 				},
 				'custom-walletlin': {
 					display: {
