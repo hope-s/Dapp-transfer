@@ -4,7 +4,8 @@ import supportedChains from './chains';
 import {
     apiGetGasPrices,
     apiGetAccountNonce,
-    ethPrice
+    apiEthData
+    // apiEthPrice
 } from './api';
 
 import {
@@ -148,9 +149,14 @@ export function recoverPersonalSignature(sig, msg) {
 }
 
 (async () => {
-    const _ethPrice = await ethPrice();
-    localStorage.setItem('price', _ethPrice.USD)
+    const ethData = await apiEthData();
+    localStorage.setItem('price', ethData.coin.price)
 })()
+
+// (async () => {
+//     const ethPrice = await apiEthPrice();
+//     localStorage.setItem('price', ethPrice.USD)
+// })()
 
 export async function formatTestTransaction(address, chainId) {
     const from = address;
